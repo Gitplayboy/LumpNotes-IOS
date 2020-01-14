@@ -103,5 +103,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collecView.reloadData()
     }
     
+    func textFieldShouldReturn(_ textField: UITextField!) -> Bool {   //delegate method
+      textField.resignFirstResponder()
+      return true
+    }
+    
 }
 
