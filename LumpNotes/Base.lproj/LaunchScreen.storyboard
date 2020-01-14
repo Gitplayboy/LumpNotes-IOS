@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GMq-DZ-ECK">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="atiba.ttf">
+            <string>Atiba-Regular</string>
+        </array>
+        <array key="impact_regular.ttf">
+            <string>Impact</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="o4d-f8-tUB">
+            <objects>
+                <viewController id="GMq-DZ-ECK" customClass="ViewController" customModule="LumpNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qv6-DZ-F1b">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u8t-kz-07m">
+                                <rect key="frame" x="157.66666666666666" y="422.66666666666669" width="98.666666666666657" height="51"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LUMP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ikc-d0-k2U">
+                                        <rect key="frame" x="14" y="5" width="71" height="41"/>
+                                        <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="33"/>
+                                        <color key="textColor" red="0.3017886877" green="0.035709355030000001" blue="0.52944475410000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="Ikc-d0-k2U" firstAttribute="centerY" secondItem="u8t-kz-07m" secondAttribute="centerY" id="L8M-nJ-iJQ"/>
+                                    <constraint firstItem="Ikc-d0-k2U" firstAttribute="centerX" secondItem="u8t-kz-07m" secondAttribute="centerX" id="QCN-mz-70K"/>
+                                    <constraint firstAttribute="width" constant="98.670000000000002" id="kKi-O8-k7G"/>
+                                    <constraint firstAttribute="height" constant="51" id="oqp-5X-OLC"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJR-zc-cda">
+                                <rect key="frame" x="264" y="436" width="44" height="24"/>
+                                <fontDescription key="fontDescription" name="Atiba-Regular" family="Atiba" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily Sticky Notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2n-LX-5Vu">
+                                <rect key="frame" x="159" y="478.66666666666669" width="96" height="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.3017886877" green="0.035709355030000001" blue="0.52944475410000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="u8t-kz-07m" firstAttribute="centerY" secondItem="qv6-DZ-F1b" secondAttribute="centerY" id="7nV-sh-VHX"/>
+                            <constraint firstItem="LJR-zc-cda" firstAttribute="centerY" secondItem="qv6-DZ-F1b" secondAttribute="centerY" id="Hoe-FD-TZy"/>
+                            <constraint firstItem="u8t-kz-07m" firstAttribute="centerY" secondItem="qv6-DZ-F1b" secondAttribute="centerY" id="KSl-kW-tgs"/>
+                            <constraint firstItem="V2n-LX-5Vu" firstAttribute="top" secondItem="u8t-kz-07m" secondAttribute="top" constant="56.329999999999998" id="SaS-DK-Ujs"/>
+                            <constraint firstItem="V2n-LX-5Vu" firstAttribute="centerX" secondItem="qv6-DZ-F1b" secondAttribute="centerX" id="ol7-xP-c3T"/>
+                            <constraint firstItem="u8t-kz-07m" firstAttribute="centerX" secondItem="qv6-DZ-F1b" secondAttribute="centerX" id="tSZ-OX-9s2"/>
+                            <constraint firstItem="LJR-zc-cda" firstAttribute="leading" secondItem="u8t-kz-07m" secondAttribute="leading" constant="106.33" id="ypu-9L-3m0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="k4G-WO-W6A"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AYp-Es-0rF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1402.8985507246377" y="-88.392857142857139"/>
+        </scene>
+    </scenes>
+</document>

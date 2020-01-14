@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
+        <attribute name="category_color" optional="YES" attributeType="String"/>
+        <attribute name="category_icon" optional="YES" attributeType="Binary"/>
+        <attribute name="category_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="category_name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Notes" representedClassName="Notes" syncable="YES" codeGenerationType="class">
+        <attribute name="category_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note_created_timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="note_description" optional="YES" attributeType="String"/>
+        <attribute name="note_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note_last_updated_timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="note_location" optional="YES" attributeType="String"/>
+        <attribute name="note_title" optional="YES" attributeType="String"/>
+        <relationship name="notes_catgeory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category"/>
+    </entity>
+    <entity name="Notes_Audio" representedClassName="Notes_Audio" syncable="YES" codeGenerationType="class">
+        <attribute name="audio_content" optional="YES" attributeType="Binary"/>
+        <attribute name="audio_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="notes_audio" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes"/>
+    </entity>
+    <entity name="Notes_Images" representedClassName="Notes_Images" syncable="YES" codeGenerationType="class">
+        <attribute name="image_content" optional="YES" attributeType="Binary"/>
+        <attribute name="image_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="notes_images" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes"/>
+    </entity>
+    <elements>
+        <element name="Category" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Notes" positionX="-54" positionY="18" width="128" height="163"/>
+        <element name="Notes_Audio" positionX="-18" positionY="81" width="128" height="103"/>
+        <element name="Notes_Images" positionX="0" positionY="90" width="128" height="103"/>
+    </elements>
+</model>
