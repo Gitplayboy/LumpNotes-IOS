@@ -16,12 +16,13 @@ extension UIColor {
     }
 }
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
+class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var searchBar:UITextField!
     @IBOutlet weak var addCategoryBtn: UIButton!
     @IBOutlet weak var collecView:UICollectionView!
+    var isAscendingSort = false
     let utils = Utilities()
     let reuseIdentifier = "CategoryCell" 
     var items = ["Shopping","Travelling","Education","Market","Shopping","Travelling","Education","Market"]
@@ -34,15 +35,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         setupNavigationBar()
     }
     
+    // MARK: - Collection View Delegate functions
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredCategories.count
-    }
-    
-    func setupNavigationBar() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.backgroundColor = UIColor.clear
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -61,7 +57,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.2) {
             if let cell = collectionView.cellForItem(at: indexPath) as? CategoryViewCell {
                 cell.transform = .init(scaleX: 0.95, y: 0.95)
                 cell.contentView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
@@ -70,7 +66,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
 
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.2) {
             if let cell = collectionView.cellForItem(at: indexPath) as? CategoryViewCell {
                 cell.transform = .identity
                 cell.contentView.backgroundColor = .clear
@@ -78,16 +74,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    func applyPresetConstraints() {
-        utils.applyDropShadowSearchBar(searchBar)
-        topView.layer.cornerRadius = 20
-        let layout = collecView.collectionViewLayout as? UICollectionViewFlowLayout
-        layout?.estimatedItemSize = CGSize(width: 160, height: 160)
-        addCategoryBtn.layer.cornerRadius = addCategoryBtn.frame.size.width/2
-        addCategoryBtn.layer.masksToBounds = true
-        collecView.backgroundColor = utils.hexStringToUIColor(hex: "#F7F7F7")
-        view.backgroundColor = utils.hexStringToUIColor(hex: "#F7F7F7")
-    }
+    // MARK: - Text field Delegate functions
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if searchBar.text != nil && !searchBar.text!.isEmpty {
@@ -103,10 +90,56 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         collecView.reloadData()
     }
     
-    func textFieldShouldReturn(_ textField: UITextField!) -> Bool {   //delegate method
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {   
       textField.resignFirstResponder()
       return true
     }
     
+    @IBAction func onAddCategoryClick(_ sender: UIButton) {
+        let popup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "sbPopupId") as! AddCategoryVC
+        self.addChild(popup)
+        popup.view.frame = self.view.frame
+        self.view.addSubview(popup.view)
+        popup.didMove(toParent: self)
+    }
+    
+    
+    @IBAction func onSortBtnClick(_ sender: UIButton) {
+        if isAscendingSort {
+            filteredCategories.sort(){$0 > $1}
+            isAscendingSort = false
+        } else {
+            filteredCategories.sort(){$0 < $1}
+            isAscendingSort = true
+        }
+        items = filteredCategories
+        collecView.reloadData()
+    }
+}
+
+extension MainVC {
+    func setupNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.backgroundColor = UIColor.clear
+    }
+    
+    func addCategory(_ category:String) {
+        items.append(category)
+        filteredCategories = items
+        collecView.reloadData()
+    }
+    
+    func applyPresetConstraints() {
+        utils.applyDropShadowSearchBar(searchBar)
+        topView.layer.cornerRadius = 20
+        let layout = collecView.collectionViewLayout as? UICollectionViewFlowLayout
+        layout?.estimatedItemSize = CGSize(width: 160, height: 160)
+        addCategoryBtn.layer.cornerRadius = addCategoryBtn.frame.size.width/2
+        addCategoryBtn.layer.masksToBounds = true
+        collecView.backgroundColor = utils.hexStringToUIColor(hex: "#F7F7F7")
+        view.backgroundColor = utils.hexStringToUIColor(hex: "#F7F7F7")
+    }
 }
 

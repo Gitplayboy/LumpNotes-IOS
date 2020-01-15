@@ -26,6 +26,7 @@
 		<string>atiba.ttf</string>
 		<string>segoe_ui.ttf</string>
 		<string>segoe-ui-bold.ttf</string>
+		<string>SFProDisplay-Bold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
