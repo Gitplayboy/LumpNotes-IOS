@@ -43,7 +43,7 @@ class AddCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddCategoryViewCell
-        addCatgryCell.iconImgView.image = UIImage(named:"shopping")
+        addCatgryCell.iconBtn.setBackgroundImage(UIImage(named:"shopping"), for: .normal)
         return addCatgryCell
     }
     
@@ -60,7 +60,13 @@ extension AddCategoryVC {
         let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialDark)
         blurEffectView = UIVisualEffectView(effect: effect)
         blurEffectView!.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width,height:UIScreen.main.bounds.size.height)
+        self.parent?.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         self.parent?.view.addSubview(blurEffectView!)
+        self.parent?.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+    }
+    
+    @objc func handleDismiss() {
+        removeAnimate()
     }
 
     func removeBlurEffectView() {
@@ -94,7 +100,7 @@ extension AddCategoryVC {
     func applyPresetConstraints() {
         let layout = iconCollecView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.estimatedItemSize = CGSize(width: 35, height: 35)
-        self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        self.view.backgroundColor = UIColor.white.withAlphaComponent(0)
         popupView.backgroundColor = .init(white: 1, alpha: 0.6)
         iconCollecView.backgroundColor = .clear
         popupView.layer.borderColor = Utilities().hexStringToUIColor(hex: "#707070").cgColor

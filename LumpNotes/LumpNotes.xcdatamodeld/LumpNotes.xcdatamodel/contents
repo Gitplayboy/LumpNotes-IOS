@@ -7,6 +7,7 @@
         <relationship name="notes_category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes" inverseName="category" inverseEntity="Notes"/>
     </entity>
     <entity name="Notes" representedClassName="Notes" syncable="YES" codeGenerationType="class">
+        <attribute name="category_name" optional="YES" attributeType="String"/>
         <attribute name="note_created_timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="note_description" optional="YES" attributeType="String"/>
         <attribute name="note_last_updated_timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -27,7 +28,7 @@
     </entity>
     <elements>
         <element name="Category" positionX="-186.71484375" positionY="71.375" width="120.23046875" height="103"/>
-        <element name="Notes" positionX="-408.05859375" positionY="-17.98828125" width="128" height="178"/>
+        <element name="Notes" positionX="-408.05859375" positionY="-17.98828125" width="128" height="193"/>
         <element name="Notes_Audio" positionX="-442.0234375" positionY="243.80859375" width="128" height="73"/>
         <element name="Notes_Images" positionX="-623.1015625" positionY="32.94140625" width="128" height="73"/>
     </elements>

@@ -17,8 +17,9 @@ extension UIColor {
     }
 }
 
-class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
+class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate,CategoryViewCellDelegate {
     
+    let blackView = UIView()
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var searchBar:UITextField!
     @IBOutlet weak var addCategoryBtn: UIButton!
@@ -26,30 +27,19 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     var isAscendingSort = false
     let utils = Utilities()
     let reuseIdentifier = "CategoryCell" 
-    var items = ["Shopping","Travelling","Education","Market","Shopping","Travelling","Education","Market"]
+    var items = [String]()
     var filteredCategories = [String]()
+    static var notesObj:[Notes]?
+    static var categoryObj:[Category]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        MainVC.notesObj = DataModel.fetchData()
+        MainVC.categoryObj = DataModel.fetchDefaultCategories()
+        items = utils.fetchCategoriesCoreData()
         filteredCategories = items
         applyPresetConstraints()
         setupNavigationBar()
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let managedObjectContext =  appDelegate!.persistentContainer.viewContext
-        
-        /*let category = Category.init(entity: NSEntityDescription.entity(forEntityName: "Category", in:managedObjectContext)!, insertInto: managedObjectContext)
-        
-        do {
-            try managedObjectContext.save()
-        } catch {
-            
-        }
-        //DataModel().deleteAllData()
-        
-        for notes in DataModel().fetchData() {
-            print(notes.note_title!)
-        }*/
-        
     }
     
     // MARK: - Collection View Delegate functions
@@ -61,6 +51,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let categoryCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryViewCell
+        categoryCell.delegate = self
         categoryCell.categoryLbl.text! = filteredCategories[indexPath.row]
         categoryCell.backgroundColor = utils.hexStringToUIColor(hex: "#ffffff")
         
@@ -135,6 +126,57 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 extension MainVC {
+    func showAlertActions(_ cell: CategoryViewCell) {
+        let alertController = UIAlertController(title: nil, message: "Do You Want to make changes to the Category ?", preferredStyle: .actionSheet)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in}
+        alertController.addAction(cancelAction)
+
+        let OKAction = UIAlertAction(title: "Edit", style: .default) { (action) in
+            // TO-DO :- Edit Actions
+        }
+        alertController.addAction(OKAction)
+        
+        let destroyAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            // TO-DO :- Delete Actions
+            let alertController = UIAlertController(title: "Delete Category", message: "Are You sure you want to delete??", preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in}
+            alertController.addAction(cancelAction)
+
+            let destroyAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+                let index = self.collecView.indexPath(for: cell)
+                self.collecView.deleteItems(at: [index!])
+                self.filteredCategories.remove(at: index!.row)
+                self.items = self.filteredCategories
+            }
+            alertController.addAction(destroyAction)
+
+            self.present(alertController, animated: true) {}
+        }
+        alertController.addAction(destroyAction)
+        self.present(alertController, animated: true) {}
+    }
+    func selectedCategory(cell: CategoryViewCell) {
+        //guard let index = collecView.indexPath(for: cell)?.row else { return }
+        //appearBlackViewFrame()
+        showAlertActions(cell)
+    }
+    
+    func appearBlackViewFrame() {
+        if let window = UIApplication.shared.windows.first {
+            blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+            window.addSubview(blackView)
+            
+            blackView.frame = window.frame
+            blackView.alpha = 0
+            
+            UIView.animate(withDuration: 0.5) {
+                self.blackView.alpha = 1
+            }
+        }
+    }
+    
     func setupNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -145,7 +187,13 @@ extension MainVC {
     func addCategory(_ category:String) {
         items.append(category)
         filteredCategories = items
-        collecView.reloadData()
+        let indexPath = IndexPath(row: self.filteredCategories.count - 1, section: 0)
+        self.collecView?.insertItems(at: [indexPath])
+        self.collecView.scrollToItem(at: indexPath, at: .bottom , animated: true)
+        
+        DispatchQueue.main.async {
+            DataModel().addCategory(self.filteredCategories[self.filteredCategories.count - 1],"")
+        }
     }
     
     func applyPresetConstraints() {

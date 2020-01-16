@@ -9,6 +9,7 @@
 import UIKit
 
 class Utilities {
+    let blackView = UIView()
     func hexStringToUIColor (hex:String) -> UIColor {
        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
 
@@ -51,4 +52,38 @@ class Utilities {
         categoryCell.layer.masksToBounds = false
         categoryCell.layer.shadowPath = UIBezierPath(roundedRect: categoryCell.bounds, cornerRadius: categoryCell.layer.cornerRadius).cgPath
     }
+    
+    func loadPropertyList() -> [String]{
+        var nsDictionary: NSDictionary?
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
+           nsDictionary = NSDictionary(contentsOfFile: path)
+        }
+        if nsDictionary != nil {
+            let categoryArr = nsDictionary?.value(forKey: "Notes Category") as! [String]
+            
+            //If the category is empty in DB save it in from the plist
+            DispatchQueue.main.async {
+                for category in categoryArr {
+                    DataModel().addCategory(category,"")
+                }
+            }
+            return categoryArr
+        }
+        return []
+    }
+    
+    func fetchCategoriesCoreData() -> [String]{
+        var categoryArr = [String]()
+        if let categoryArrObj = MainVC.categoryObj {
+            for categories in categoryArrObj {
+                categoryArr.append(categories.category_name!)
+            }
+        }
+        if categoryArr.isEmpty {
+            return loadPropertyList()
+        }
+        return categoryArr
+    }
+    
+    
 }

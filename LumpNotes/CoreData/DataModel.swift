@@ -12,41 +12,40 @@ import CoreData
 class DataModel {
    
     let persistentContainer = NSPersistentContainer(name: "LumpNotes")
+    static var notes = [Notes]()
+    static var defaultCategories = [Category]()
     var context: NSManagedObjectContext {
         return self.persistentContainer.viewContext
     }
-    func initalizeStack() {
-        self.persistentContainer.loadPersistentStores { description, error in
-            if let error = error {
-                print("could not load store \(error.localizedDescription)")
-                return
-            }
-            print("store loaded")
-        }
-    }
     
-    func fetchData() -> [Notes]{
-        var notes = [Notes]()
+    static func fetchData()-> [Notes]{
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return notes
+            return []
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<Notes>(entityName: "Notes")
         do {
           notes = try managedContext.fetch(fetchRequest)
+          return notes
         } catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
-        return notes
+        return []
     }
     
-    func saveData(_ title:String,_ description:String,_ location:String) {
+    func saveData(_ title:String,_ description:String,_ latitude:String,_ longitude:String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
+        let newEntity = NSEntityDescription.insertNewObject(forEntityName: "Notes", into: managedContext)
+        newEntity.setValue(title, forKey: "note_title")
+        newEntity.setValue(description, forKey: "note_description")
+        newEntity.setValue(latitude, forKey: "note_latitude_loc")
+        newEntity.setValue(longitude, forKey: "note_longitude_loc")
         do {
           try managedContext.save()
+            print("notes saved successfully")
         } catch let error as NSError {
           print("Could not save. \(error), \(error.userInfo)")
         }
@@ -66,12 +65,41 @@ class DataModel {
                 managedContext.delete(objectData)
             }
             try managedContext.save()
-        } catch {
-            
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
         }
     }
     
-    func addCategory() {
-        
+    func addCategory(_ categoryName:String,_ categoryIcon:String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let category = Category.init(entity: NSEntityDescription.entity(forEntityName: "Category", in:managedContext)!, insertInto: managedContext)
+        category.setValue(categoryName, forKey: "category_name")
+        if !categoryIcon.isEmpty {
+            category.setValue(categoryIcon, forKey: "category_icon")
+        }
+        do {
+            try managedContext.save()
+            print("category saved successfully")
+        } catch let error as NSError {
+            print("Error while saving category. \(error), \(error.userInfo)")
+        }
+    }
+    
+    static func fetchDefaultCategories() -> [Category]{
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return []
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+        do {
+          defaultCategories = try managedContext.fetch(fetchRequest)
+          return defaultCategories
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return []
     }
 }
