@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 extension UIColor {
     static var random: UIColor {
         return UIColor(red: .random(in: 0...1),
@@ -33,6 +34,22 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         filteredCategories = items
         applyPresetConstraints()
         setupNavigationBar()
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let managedObjectContext =  appDelegate!.persistentContainer.viewContext
+        
+        /*let category = Category.init(entity: NSEntityDescription.entity(forEntityName: "Category", in:managedObjectContext)!, insertInto: managedObjectContext)
+        
+        do {
+            try managedObjectContext.save()
+        } catch {
+            
+        }
+        //DataModel().deleteAllData()
+        
+        for notes in DataModel().fetchData() {
+            print(notes.note_title!)
+        }*/
+        
     }
     
     // MARK: - Collection View Delegate functions

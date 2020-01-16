@@ -3,35 +3,32 @@
     <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
         <attribute name="category_color" optional="YES" attributeType="String"/>
         <attribute name="category_icon" optional="YES" attributeType="Binary"/>
-        <attribute name="category_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="category_name" optional="YES" attributeType="String"/>
+        <relationship name="notes_category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes" inverseName="category" inverseEntity="Notes"/>
     </entity>
     <entity name="Notes" representedClassName="Notes" syncable="YES" codeGenerationType="class">
-        <attribute name="category_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="note_created_timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="note_description" optional="YES" attributeType="String"/>
-        <attribute name="note_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="note_last_updated_timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="note_location" optional="YES" attributeType="String"/>
+        <attribute name="note_latitude_loc" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note_longitude_loc" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="note_title" optional="YES" attributeType="String"/>
-        <relationship name="notes_catgeory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category"/>
+        <relationship name="audio" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notes_Audio" inverseName="notes_audio" inverseEntity="Notes_Audio"/>
+        <relationship name="category" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Category" inverseName="notes_category" inverseEntity="Category"/>
+        <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notes_Images" inverseName="notes_images" inverseEntity="Notes_Images"/>
     </entity>
     <entity name="Notes_Audio" representedClassName="Notes_Audio" syncable="YES" codeGenerationType="class">
         <attribute name="audio_content" optional="YES" attributeType="Binary"/>
-        <attribute name="audio_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="note_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="notes_audio" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes"/>
+        <relationship name="notes_audio" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes" inverseName="audio" inverseEntity="Notes"/>
     </entity>
     <entity name="Notes_Images" representedClassName="Notes_Images" syncable="YES" codeGenerationType="class">
         <attribute name="image_content" optional="YES" attributeType="Binary"/>
-        <attribute name="image_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="note_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="notes_images" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes"/>
+        <relationship name="notes_images" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes" inverseName="images" inverseEntity="Notes"/>
     </entity>
     <elements>
-        <element name="Category" positionX="-63" positionY="-18" width="128" height="103"/>
-        <element name="Notes" positionX="-54" positionY="18" width="128" height="163"/>
-        <element name="Notes_Audio" positionX="-18" positionY="81" width="128" height="103"/>
-        <element name="Notes_Images" positionX="0" positionY="90" width="128" height="103"/>
+        <element name="Category" positionX="-186.71484375" positionY="71.375" width="120.23046875" height="103"/>
+        <element name="Notes" positionX="-408.05859375" positionY="-17.98828125" width="128" height="178"/>
+        <element name="Notes_Audio" positionX="-442.0234375" positionY="243.80859375" width="128" height="73"/>
+        <element name="Notes_Images" positionX="-623.1015625" positionY="32.94140625" width="128" height="73"/>
     </elements>
 </model>

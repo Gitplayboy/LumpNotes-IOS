@@ -38,7 +38,7 @@ class AddCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionView
     // MARK: - Collection View Delegate functions
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 30
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -49,7 +49,7 @@ class AddCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionView
     
     // MARK: - Text field Delegate functions
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       textField.resignFirstResponder()
       return true
     }
@@ -57,7 +57,7 @@ class AddCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionView
 
 extension AddCategoryVC {
     func makeBlurEffectView() {
-        let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialDark)
         blurEffectView = UIVisualEffectView(effect: effect)
         blurEffectView!.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width,height:UIScreen.main.bounds.size.height)
         self.parent?.view.addSubview(blurEffectView!)
@@ -90,20 +90,23 @@ extension AddCategoryVC {
         });
         removeBlurEffectView()
     }
+    
     func applyPresetConstraints() {
-        self.view.backgroundColor = UIColor.clear.withAlphaComponent(0)
-        popupView.backgroundColor = Utilities().hexStringToUIColor(hex: "#E4E4E4")
-        iconCollecView.backgroundColor = Utilities().hexStringToUIColor(hex: "#E4E4E4")
+        let layout = iconCollecView.collectionViewLayout as? UICollectionViewFlowLayout
+        layout?.estimatedItemSize = CGSize(width: 35, height: 35)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0)
+        popupView.backgroundColor = .init(white: 1, alpha: 0.6)
+        iconCollecView.backgroundColor = .clear
         popupView.layer.borderColor = Utilities().hexStringToUIColor(hex: "#707070").cgColor
         
         let bottomBorder = CALayer()
         bottomBorder.borderColor = Utilities().hexStringToUIColor(hex: "#3C3C434A").cgColor
-        bottomBorder.borderWidth = 1;
+        bottomBorder.borderWidth = 1
         bottomBorder.frame = CGRect(x: 0, y: 0, width: 1, height: doneBtn.frame.height)
         
         let topBorder = CALayer()
         topBorder.borderColor = Utilities().hexStringToUIColor(hex: "#3C3C434A").cgColor
-        topBorder.borderWidth = 1;
+        topBorder.borderWidth = 1
         topBorder.frame = CGRect(x: 0, y: 0, width: doneBtn.frame.width, height: 1)
         
         let topBorderCancel = CALayer()
