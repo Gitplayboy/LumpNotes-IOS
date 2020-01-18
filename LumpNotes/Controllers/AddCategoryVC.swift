@@ -8,16 +8,25 @@
 
 import UIKit
 
-class AddCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
+class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
     var blurEffectView:UIVisualEffectView?
+    var lblText : String?
+    var categoryTxt : String?
     @IBOutlet weak var iconCollecView: UICollectionView!
     @IBOutlet weak var addCatgryTxt: UITextField!
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var doneBtn: UIButton!
+    @IBOutlet weak var titleLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let titleTxt = lblText {
+            titleLbl.text = titleTxt
+        }
+        if let category = categoryTxt {
+            addCatgryTxt.text = category
+        }
         applyPresetConstraints()
         Utilities().applyDropShadowSearchBar(addCatgryTxt)
         showAnimate()
@@ -28,7 +37,10 @@ class AddCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionView
     }
     
     @IBAction func onDone(_ sender: UIButton) {
-        if addCatgryTxt != nil && !addCatgryTxt.text!.isEmpty {
+        let mainVc = self.parent as! MainVC
+        if let category = categoryTxt {
+            mainVc.editCategory(category,addCatgryTxt.text!)
+        } else  if addCatgryTxt != nil && !addCatgryTxt.text!.isEmpty {
             let mainVc = self.parent as! MainVC
             mainVc.addCategory(addCatgryTxt.text!)
         }
@@ -42,7 +54,7 @@ class AddCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddCategoryViewCell
+        let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddEditCategoryCell
         addCatgryCell.iconBtn.setBackgroundImage(UIImage(named:"shopping"), for: .normal)
         return addCatgryCell
     }
@@ -55,7 +67,7 @@ class AddCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionView
     }
 }
 
-extension AddCategoryVC {
+extension AddEditCategoryVC {
     func makeBlurEffectView() {
         let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialDark)
         blurEffectView = UIVisualEffectView(effect: effect)

@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		45485D4C23CEE91D00DF9BE9 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45485D4B23CEE91C00DF9BE9 /* SFProDisplay-Bold.ttf */; };
-		45485D5023CEF44400DF9BE9 /* AddCategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45485D4F23CEF44400DF9BE9 /* AddCategoryViewCell.swift */; };
-		45485D5223CEF5E000DF9BE9 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45485D4D23CEEF1200DF9BE9 /* AddCategoryVC.swift */; };
+		45485D5023CEF44400DF9BE9 /* AddEditCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45485D4F23CEF44400DF9BE9 /* AddEditCategoryCell.swift */; };
 		45485D5323CEF5EE00DF9BE9 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72CA23CC003E00A2001E /* MainVC.swift */; };
 		4548858623CCD11E0072BB82 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4548858523CCD11E0072BB82 /* DataModel.swift */; };
 		454F72C723CC003E00A2001E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72C623CC003E00A2001E /* AppDelegate.swift */; };
@@ -23,13 +22,13 @@
 		454F72F623CC075B00A2001E /* segoe_ui.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454F72F223CC075B00A2001E /* segoe_ui.ttf */; };
 		454F72F723CC075B00A2001E /* atiba.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454F72F323CC075B00A2001E /* atiba.ttf */; };
 		454F72FD23CC29FA00A2001E /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72FC23CC29FA00A2001E /* CategoryViewCell.swift */; };
+		4575C00123D18640008EB048 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4575C00023D18640008EB048 /* AddCategoryVC.swift */; };
 		45F01E0123CC4A320076D02F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F01E0023CC4A320076D02F /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		45485D4B23CEE91C00DF9BE9 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
-		45485D4D23CEEF1200DF9BE9 /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
-		45485D4F23CEF44400DF9BE9 /* AddCategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryViewCell.swift; sourceTree = "<group>"; };
+		45485D4F23CEF44400DF9BE9 /* AddEditCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCategoryCell.swift; sourceTree = "<group>"; };
 		4548858523CCD11E0072BB82 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		454F72C323CC003E00A2001E /* LumpNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LumpNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		454F72C623CC003E00A2001E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +44,7 @@
 		454F72F223CC075B00A2001E /* segoe_ui.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = segoe_ui.ttf; path = "../../../../../Downloads/custom fonts/segoe_ui.ttf"; sourceTree = "<group>"; };
 		454F72F323CC075B00A2001E /* atiba.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = atiba.ttf; path = "../../../../../Downloads/custom fonts/atiba.ttf"; sourceTree = "<group>"; };
 		454F72FC23CC29FA00A2001E /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
+		4575C00023D18640008EB048 /* AddCategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
 		45F01E0023CC4A320076D02F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				454F72FC23CC29FA00A2001E /* CategoryViewCell.swift */,
-				45485D4F23CEF44400DF9BE9 /* AddCategoryViewCell.swift */,
+				45485D4F23CEF44400DF9BE9 /* AddEditCategoryCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -127,7 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				454F72CA23CC003E00A2001E /* MainVC.swift */,
-				45485D4D23CEEF1200DF9BE9 /* AddCategoryVC.swift */,
+				4575C00023D18640008EB048 /* AddCategoryVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -216,12 +216,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4575C00123D18640008EB048 /* AddCategoryVC.swift in Sources */,
 				45485D5323CEF5EE00DF9BE9 /* MainVC.swift in Sources */,
-				45485D5223CEF5E000DF9BE9 /* AddCategoryVC.swift in Sources */,
 				4548858623CCD11E0072BB82 /* DataModel.swift in Sources */,
 				45F01E0123CC4A320076D02F /* Utilities.swift in Sources */,
 				454F72D123CC003E00A2001E /* LumpNotes.xcdatamodeld in Sources */,
-				45485D5023CEF44400DF9BE9 /* AddCategoryViewCell.swift in Sources */,
+				45485D5023CEF44400DF9BE9 /* AddEditCategoryCell.swift in Sources */,
 				454F72C723CC003E00A2001E /* AppDelegate.swift in Sources */,
 				454F72C923CC003E00A2001E /* SceneDelegate.swift in Sources */,
 				454F72FD23CC29FA00A2001E /* CategoryViewCell.swift in Sources */,

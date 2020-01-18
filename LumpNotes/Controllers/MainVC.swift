@@ -20,6 +20,8 @@ extension UIColor {
 class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate,CategoryViewCellDelegate {
     
     let blackView = UIView()
+    var isEditCategory = false
+    var currentCategory = ""
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var searchBar:UITextField!
     @IBOutlet weak var addCategoryBtn: UIButton!
@@ -29,13 +31,9 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     let reuseIdentifier = "CategoryCell" 
     var items = [String]()
     var filteredCategories = [String]()
-    static var notesObj:[Notes]?
-    static var categoryObj:[Category]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        MainVC.notesObj = DataModel.fetchData()
-        MainVC.categoryObj = DataModel.fetchDefaultCategories()
         items = utils.fetchCategoriesCoreData()
         filteredCategories = items
         applyPresetConstraints()
@@ -103,8 +101,12 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
       return true
     }
     
-    @IBAction func onAddCategoryClick(_ sender: UIButton) {
-        let popup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "sbPopupId") as! AddCategoryVC
+    @IBAction func onAddEditCategoryClick() {
+        let popup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "sbPopupId") as! AddEditCategoryVC
+        if isEditCategory {
+            popup.lblText = "Edit Category"
+            popup.categoryTxt = currentCategory
+        }
         self.addChild(popup)
         popup.view.frame = self.view.frame
         self.view.addSubview(popup.view)
@@ -134,6 +136,9 @@ extension MainVC {
 
         let OKAction = UIAlertAction(title: "Edit", style: .default) { (action) in
             // TO-DO :- Edit Actions
+            self.currentCategory = cell.categoryLbl.text!
+            self.isEditCategory = true
+            self.onAddEditCategoryClick()
         }
         alertController.addAction(OKAction)
         
@@ -149,6 +154,7 @@ extension MainVC {
                 self.collecView.deleteItems(at: [index!])
                 self.filteredCategories.remove(at: index!.row)
                 self.items = self.filteredCategories
+                DataModel().deleteCategory(cell.categoryLbl.text!)
             }
             alertController.addAction(destroyAction)
 
@@ -185,14 +191,46 @@ extension MainVC {
     }
     
     func addCategory(_ category:String) {
-        items.append(category)
-        filteredCategories = items
-        let indexPath = IndexPath(row: self.filteredCategories.count - 1, section: 0)
-        self.collecView?.insertItems(at: [indexPath])
-        self.collecView.scrollToItem(at: indexPath, at: .bottom , animated: true)
-        
-        DispatchQueue.main.async {
-            DataModel().addCategory(self.filteredCategories[self.filteredCategories.count - 1],"")
+        if items.contains(where: {$0.caseInsensitiveCompare(category) == .orderedSame}) {
+            let alert = UIAlertController(title: "Duplicate Category", message: "Category already exists", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            items.append(category)
+            filteredCategories = items
+            let indexPath = IndexPath(row: self.filteredCategories.count - 1, section: 0)
+            self.collecView?.insertItems(at: [indexPath])
+            self.collecView.scrollToItem(at: indexPath, at: .bottom , animated: true)
+            
+            DispatchQueue.main.async { DataModel().addCategory(self.items.count,self.filteredCategories[self.filteredCategories.count - 1],"")
+            }
+        }
+    }
+    
+    func editCategory(_ oldCategory:String,_ newCategory:String) {
+        if items.contains(where: {$0.caseInsensitiveCompare(newCategory) == .orderedSame}) {
+            let alert = UIAlertController(title: "Duplicate Category", message: "Category already exists", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            var indexPath:Int?
+            for (index,item) in items.enumerated() {
+                if item.elementsEqual(oldCategory) {
+                    indexPath = index
+                    items[index] = newCategory
+                    break
+                }
+            }
+            filteredCategories = items
+            collecView.reloadData()
+            //if let index = indexPath {
+              //  collecView.insertItems(at: [IndexPath(index: index)])
+            //}
+            
+            DispatchQueue.main.async {
+                DataModel().updateCategoryName(oldCategory, newCategory)
+            }
+            isEditCategory = false
         }
     }
     

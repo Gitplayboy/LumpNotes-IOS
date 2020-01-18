@@ -10,28 +10,6 @@ import UIKit
 import CoreData
 
 class DataModel {
-   
-    let persistentContainer = NSPersistentContainer(name: "LumpNotes")
-    static var notes = [Notes]()
-    static var defaultCategories = [Category]()
-    var context: NSManagedObjectContext {
-        return self.persistentContainer.viewContext
-    }
-    
-    static func fetchData()-> [Notes]{
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return []
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<Notes>(entityName: "Notes")
-        do {
-          notes = try managedContext.fetch(fetchRequest)
-          return notes
-        } catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        return []
-    }
     
     func saveData(_ title:String,_ description:String,_ latitude:String,_ longitude:String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -47,7 +25,7 @@ class DataModel {
           try managedContext.save()
             print("notes saved successfully")
         } catch let error as NSError {
-          print("Could not save. \(error), \(error.userInfo)")
+          print("Could not notes. \(error), \(error.userInfo)")
         }
     }
     
@@ -56,7 +34,7 @@ class DataModel {
           return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Notes")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
         fetchRequest.returnsObjectsAsFaults = false
         do {
             let results = try managedContext.fetch(fetchRequest)
@@ -66,17 +44,18 @@ class DataModel {
             }
             try managedContext.save()
         } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+            print("Could not delete all data. \(error), \(error.userInfo)")
         }
     }
     
-    func addCategory(_ categoryName:String,_ categoryIcon:String) {
+    func addCategory(_ categoryId:Int,_ categoryName:String,_ categoryIcon:String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
         let managedContext = appDelegate.persistentContainer.viewContext
-        let category = Category.init(entity: NSEntityDescription.entity(forEntityName: "Category", in:managedContext)!, insertInto: managedContext)
+        let category = NSEntityDescription.insertNewObject(forEntityName: "Category", into: managedContext)
         category.setValue(categoryName, forKey: "category_name")
+        category.setValue(categoryId, forKey: "category_id")
         if !categoryIcon.isEmpty {
             category.setValue(categoryIcon, forKey: "category_icon")
         }
@@ -84,13 +63,14 @@ class DataModel {
             try managedContext.save()
             print("category saved successfully")
         } catch let error as NSError {
-            print("Error while saving category. \(error), \(error.userInfo)")
+            print("Error while adding category. \(error), \(error.userInfo)")
         }
     }
-    
-    static func fetchDefaultCategories() -> [Category]{
+        
+     func fetchCategories() -> [Category]{
+        var defaultCategories = [Category]()
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return []
+          return []
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
@@ -101,5 +81,44 @@ class DataModel {
           print("Could not fetch. \(error), \(error.userInfo)")
         }
         return []
+    }
+    
+    func deleteCategory(_ categoryName:String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? Category else {continue}
+                print("object data is \(objectData.category_name!)")
+                if (objectData.category_name!.elementsEqual(categoryName)) {
+                    managedContext.delete(objectData)
+                    try managedContext.save()
+                }
+            }
+        } catch let error as NSError {
+            print("Could not delete. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func updateCategoryName(_ categoryName:String,_ updatedCategoryName:String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+        fetchRequest.predicate = NSPredicate(format: "category_name = '\(categoryName)'")
+        do {
+          let results = try managedContext.fetch(fetchRequest)
+          if let category = results.first {
+            category.category_name = updatedCategoryName
+          }
+          try managedContext.save()
+        } catch let error as NSError {
+          print(error.localizedDescription)
+        }
     }
 }

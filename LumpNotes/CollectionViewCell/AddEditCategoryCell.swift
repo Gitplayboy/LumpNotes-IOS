@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddCategoryViewCell: UICollectionViewCell {
+class AddEditCategoryCell: UICollectionViewCell {
     @IBOutlet weak var iconBtn: UIButton!
     override func draw(_ rect: CGRect) {
         super.draw(rect)

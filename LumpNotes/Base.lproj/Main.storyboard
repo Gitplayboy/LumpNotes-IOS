@@ -109,7 +109,7 @@
                                     <color key="titleColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="onAddCategoryClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DEp-kV-wzQ"/>
+                                    <action selector="onAddEditCategoryClick" destination="BYZ-38-t0r" eventType="touchUpInside" id="eWx-wM-F3v"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mg0-WL-oZ4">
@@ -228,10 +228,10 @@
             </objects>
             <point key="canvasLocation" x="1044.9275362318842" y="91.741071428571431"/>
         </scene>
-        <!--Add CategoryVC-->
+        <!--Add Edit CategoryVC-->
         <scene sceneID="l8p-Dm-C1m">
             <objects>
-                <viewController storyboardIdentifier="sbPopupId" id="iot-ft-61R" customClass="AddCategoryVC" customModule="LumpNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sbPopupId" id="iot-ft-61R" customClass="AddEditCategoryVC" customModule="LumpNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o7e-2y-AfR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -268,7 +268,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="iconCell" id="k9Y-rl-aZc" customClass="AddCategoryViewCell" customModule="LumpNotes" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="iconCell" id="k9Y-rl-aZc" customClass="AddEditCategoryCell" customModule="LumpNotes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="31" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="P0c-YZ-iU2">
@@ -368,6 +368,7 @@
                         <outlet property="doneBtn" destination="lYM-hl-JTN" id="QDX-bt-rkG"/>
                         <outlet property="iconCollecView" destination="BC1-Cy-9J6" id="XZG-gX-atS"/>
                         <outlet property="popupView" destination="3md-rX-gxB" id="1M0-I4-R5f"/>
+                        <outlet property="titleLbl" destination="Bbp-Ib-9aJ" id="JLm-Cb-EoI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kwu-Sk-W0Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

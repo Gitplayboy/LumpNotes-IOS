@@ -55,17 +55,17 @@ class Utilities {
     
     func loadPropertyList() -> [String]{
         var nsDictionary: NSDictionary?
+        var count = 0
+        
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
            nsDictionary = NSDictionary(contentsOfFile: path)
         }
         if nsDictionary != nil {
             let categoryArr = nsDictionary?.value(forKey: "Notes Category") as! [String]
             
-            //If the category is empty in DB save it in from the plist
-            DispatchQueue.main.async {
-                for category in categoryArr {
-                    DataModel().addCategory(category,"")
-                }
+            for category in categoryArr {
+                count += 1
+                DataModel().addCategory(count,category,"")
             }
             return categoryArr
         }
@@ -74,10 +74,9 @@ class Utilities {
     
     func fetchCategoriesCoreData() -> [String]{
         var categoryArr = [String]()
-        if let categoryArrObj = MainVC.categoryObj {
-            for categories in categoryArrObj {
-                categoryArr.append(categories.category_name!)
-            }
+        let categoryArrObj = DataModel().fetchCategories()
+        for categories in categoryArrObj {
+            categoryArr.append(categories.category_name!)
         }
         if categoryArr.isEmpty {
             return loadPropertyList()
