@@ -12,6 +12,7 @@ class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollection
     var blurEffectView:UIVisualEffectView?
     var lblText : String?
     var categoryTxt : String?
+    var selectedIconIdx:Int?
     @IBOutlet weak var iconCollecView: UICollectionView!
     @IBOutlet weak var addCatgryTxt: UITextField!
     @IBOutlet weak var popupView: UIView!
@@ -39,10 +40,10 @@ class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollection
     @IBAction func onDone(_ sender: UIButton) {
         let mainVc = self.parent as! MainVC
         if let category = categoryTxt {
-            mainVc.editCategory(category,addCatgryTxt.text!)
+            mainVc.editCategory(category,addCatgryTxt.text!,selectedIconIdx)
         } else  if addCatgryTxt != nil && !addCatgryTxt.text!.isEmpty {
             let mainVc = self.parent as! MainVC
-            mainVc.addCategory(addCatgryTxt.text!)
+            mainVc.addCategory(addCatgryTxt.text!,selectedIconIdx)
         }
         removeAnimate()
     }
@@ -50,13 +51,31 @@ class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollection
     // MARK: - Collection View Delegate functions
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return 130
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddEditCategoryCell
-        addCatgryCell.iconBtn.setBackgroundImage(UIImage(named:"shopping"), for: .normal)
+        addCatgryCell.backgroundColor = .systemOrange
+        addCatgryCell.iconBtn.setBackgroundImage(UIImage(named:"ctrgy_ic_\(indexPath.row + 1)"), for: .normal)
         return addCatgryCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("my index path is \(indexPath.row)")
+        selectedIconIdx = indexPath.row + 1
+        let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddEditCategoryCell
+        addCatgryCell.isHighlighted = true
+        addCatgryCell.isSelected = true
+        
+        addCatgryCell.iconBtn.isSelected = true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        print("my index path is \(indexPath.row)")
+        let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddEditCategoryCell
+        addCatgryCell.iconBtn.isHighlighted = true
+        addCatgryCell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     }
     
     // MARK: - Text field Delegate functions
@@ -72,9 +91,9 @@ extension AddEditCategoryVC {
         let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialDark)
         blurEffectView = UIVisualEffectView(effect: effect)
         blurEffectView!.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width,height:UIScreen.main.bounds.size.height)
-        self.parent?.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        //self.parent?.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         self.parent?.view.addSubview(blurEffectView!)
-        self.parent?.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
+        //self.parent?.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
     }
     
     @objc func handleDismiss() {

@@ -53,8 +53,17 @@ class Utilities {
         categoryCell.layer.shadowPath = UIBezierPath(roundedRect: categoryCell.bounds, cornerRadius: categoryCell.layer.cornerRadius).cgPath
     }
     
-    func loadPropertyList() -> [String]{
+    func transferDataDictToArr(_ items:[String:UIImage]) -> [String] {
+        var filteredCategories = [String]()
+        for (_,item) in items.enumerated() {
+            filteredCategories.append(item.key)
+        }
+        return filteredCategories
+    }
+    
+    func loadPropertyList() -> [String:UIImage]{
         var nsDictionary: NSDictionary?
+        var defaultCategoriesArr = [String:UIImage]()
         var count = 0
         
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
@@ -65,18 +74,24 @@ class Utilities {
             
             for category in categoryArr {
                 count += 1
-                DataModel().addCategory(count,category,"")
+                let imgIcon: Data = UIImage(named: "default_category")!.pngData()!
+                defaultCategoriesArr[category] = UIImage(data: imgIcon)
+                DataModel().addCategory(count,category,imgIcon)
             }
-            return categoryArr
+            return defaultCategoriesArr
         }
-        return []
+        return [:]
     }
     
-    func fetchCategoriesCoreData() -> [String]{
-        var categoryArr = [String]()
+    func fetchCategoriesCoreData() -> [String:UIImage]{
+        var categoryArr = [String:UIImage]()
         let categoryArrObj = DataModel().fetchCategories()
         for categories in categoryArrObj {
-            categoryArr.append(categories.category_name!)
+            if let icon = categories.category_icon {
+                categoryArr[categories.category_name!] = UIImage(data: icon)
+            } else {
+                categoryArr[categories.category_name!] = UIImage(named:"default_category")
+            }
         }
         if categoryArr.isEmpty {
             return loadPropertyList()

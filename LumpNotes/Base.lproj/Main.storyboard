@@ -87,6 +87,7 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="categoryLbl" destination="u2K-rY-hla" id="ysn-zT-UN3"/>
+                                            <outlet property="iconImg" destination="fY6-r0-tAp" id="l13-Iz-nfS"/>
                                             <outlet property="iconView" destination="9HE-tJ-Kmc" id="q6Y-Gh-DNR"/>
                                         </connections>
                                     </collectionViewCell>
@@ -268,14 +269,14 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="iconCell" id="k9Y-rl-aZc" customClass="AddEditCategoryCell" customModule="LumpNotes" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" contentMode="center" reuseIdentifier="iconCell" id="k9Y-rl-aZc" customClass="AddEditCategoryCell" customModule="LumpNotes" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="31" height="32"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="P0c-YZ-iU2">
                                                     <rect key="frame" x="0.0" y="0.0" width="31" height="32"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFg-1C-hQM">
+                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DFg-1C-hQM">
                                                             <rect key="frame" x="5.6666666666666679" y="6" width="20" height="20"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="CLI-EC-2a3"/>
@@ -288,7 +289,7 @@
                                                         <constraint firstItem="DFg-1C-hQM" firstAttribute="centerX" secondItem="P0c-YZ-iU2" secondAttribute="centerX" id="Xxt-iP-z5w"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <size key="customSize" width="31" height="32"/>
                                                 <connections>
                                                     <outlet property="iconBtn" destination="DFg-1C-hQM" id="TpG-AV-vwf"/>
@@ -296,8 +297,8 @@
                                             </collectionViewCell>
                                         </cells>
                                         <connections>
-                                            <outlet property="dataSource" destination="iot-ft-61R" id="Cen-R4-wZL"/>
-                                            <outlet property="delegate" destination="iot-ft-61R" id="UvB-BX-RAy"/>
+                                            <outlet property="dataSource" destination="iot-ft-61R" id="O72-Qc-lyQ"/>
+                                            <outlet property="delegate" destination="iot-ft-61R" id="mow-Dt-YlA"/>
                                         </connections>
                                     </collectionView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hjl-nI-a7z">

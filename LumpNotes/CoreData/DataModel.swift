@@ -11,7 +11,7 @@ import CoreData
 
 class DataModel {
     
-    func saveData(_ title:String,_ description:String,_ latitude:String,_ longitude:String) {
+    func saveNotes(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
@@ -48,7 +48,7 @@ class DataModel {
         }
     }
     
-    func addCategory(_ categoryId:Int,_ categoryName:String,_ categoryIcon:String) {
+    func addCategory(_ categoryId:Int,_ categoryName:String,_ categoryIcon:Data?) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
@@ -56,9 +56,7 @@ class DataModel {
         let category = NSEntityDescription.insertNewObject(forEntityName: "Category", into: managedContext)
         category.setValue(categoryName, forKey: "category_name")
         category.setValue(categoryId, forKey: "category_id")
-        if !categoryIcon.isEmpty {
-            category.setValue(categoryIcon, forKey: "category_icon")
-        }
+        category.setValue(categoryIcon, forKey: "category_icon")
         do {
             try managedContext.save()
             print("category saved successfully")
@@ -104,7 +102,7 @@ class DataModel {
         }
     }
     
-    func updateCategoryName(_ categoryName:String,_ updatedCategoryName:String) {
+    func updateCategory(_ categoryName:String,_ updatedCategoryName:String,_ categoryIcon:Data?) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
@@ -115,6 +113,9 @@ class DataModel {
           let results = try managedContext.fetch(fetchRequest)
           if let category = results.first {
             category.category_name = updatedCategoryName
+            if let icon = categoryIcon {
+                category.category_icon = icon
+            }
           }
           try managedContext.save()
         } catch let error as NSError {

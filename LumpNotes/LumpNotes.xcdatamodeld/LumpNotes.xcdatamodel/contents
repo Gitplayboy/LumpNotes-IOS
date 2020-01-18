@@ -20,17 +20,17 @@
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notes_images" inverseName="notes" inverseEntity="Notes_images"/>
     </entity>
     <entity name="Notes_audio" representedClassName="Notes_audio" syncable="YES" codeGenerationType="class">
-        <attribute name="audio_content" optional="YES" attributeType="Binary"/>
+        <attribute name="audio_content" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <relationship name="notes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes" inverseName="audio" inverseEntity="Notes"/>
     </entity>
     <entity name="Notes_images" representedClassName="Notes_images" syncable="YES" codeGenerationType="class">
-        <attribute name="image_content" optional="YES" attributeType="Binary"/>
+        <attribute name="image_content" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <relationship name="notes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notes" inverseName="images" inverseEntity="Notes"/>
     </entity>
     <elements>
+        <element name="Category" positionX="-212.22265625" positionY="-91.33203125" width="128" height="118"/>
         <element name="Notes" positionX="4.46875" positionY="-208.01171875" width="128" height="193"/>
-        <element name="Category" positionX="7.0703125" positionY="-387.78515625" width="128" height="118"/>
-        <element name="Notes_audio" positionX="-176.140625" positionY="6.6328125" width="128" height="73"/>
-        <element name="Notes_images" positionX="230.375" positionY="0.84375" width="128" height="73"/>
+        <element name="Notes_audio" positionX="-210.484375" positionY="-174.828125" width="128" height="73"/>
+        <element name="Notes_images" positionX="-194.7421875" positionY="41.64453125" width="128" height="73"/>
     </elements>
 </model>

@@ -21,6 +21,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     let blackView = UIView()
     var isEditCategory = false
+    @IBOutlet weak var iconImg: UIImageView!
     var currentCategory = ""
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var searchBar:UITextField!
@@ -29,13 +30,14 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     var isAscendingSort = false
     let utils = Utilities()
     let reuseIdentifier = "CategoryCell" 
-    var items = [String]()
+    var items = [String:UIImage]()
     var filteredCategories = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //DataModel().deleteAllData()
         items = utils.fetchCategoriesCoreData()
-        filteredCategories = items
+        filteredCategories = utils.transferDataDictToArr(items)
         applyPresetConstraints()
         setupNavigationBar()
     }
@@ -52,6 +54,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         categoryCell.delegate = self
         categoryCell.categoryLbl.text! = filteredCategories[indexPath.row]
         categoryCell.backgroundColor = utils.hexStringToUIColor(hex: "#ffffff")
+        categoryCell.iconImg.image = items[filteredCategories[indexPath.row]]
         
         categoryCell.iconView.layer.cornerRadius = categoryCell.iconView.frame.size.width/2
         categoryCell.iconView.layer.masksToBounds = true
@@ -85,13 +88,15 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if searchBar.text != nil && !searchBar.text!.isEmpty {
             filteredCategories = []
-            for item in items {
+            for item in items.keys {
                 if item.lowercased().hasPrefix(searchBar!.text!.lowercased()) {
                     filteredCategories.append(item)
                 }
             }
         } else {
-            filteredCategories = items
+            for (_,item) in items.enumerated() {
+                filteredCategories.append(item.key)
+            }
         }
         collecView.reloadData()
     }
@@ -111,18 +116,18 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         popup.view.frame = self.view.frame
         self.view.addSubview(popup.view)
         popup.didMove(toParent: self)
+        isEditCategory = false
     }
     
     
     @IBAction func onSortBtnClick(_ sender: UIButton) {
         if isAscendingSort {
-            filteredCategories.sort(){$0 > $1}
+            filteredCategories.sort(){$0.lowercased() > $1.lowercased()}
             isAscendingSort = false
         } else {
-            filteredCategories.sort(){$0 < $1}
+            filteredCategories.sort(){$0.lowercased() < $1.lowercased()}
             isAscendingSort = true
         }
-        items = filteredCategories
         collecView.reloadData()
     }
 }
@@ -135,7 +140,7 @@ extension MainVC {
         alertController.addAction(cancelAction)
 
         let OKAction = UIAlertAction(title: "Edit", style: .default) { (action) in
-            // TO-DO :- Edit Actions
+            // Edit Actions
             self.currentCategory = cell.categoryLbl.text!
             self.isEditCategory = true
             self.onAddEditCategoryClick()
@@ -143,7 +148,7 @@ extension MainVC {
         alertController.addAction(OKAction)
         
         let destroyAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
-            // TO-DO :- Delete Actions
+            // Delete Actions
             let alertController = UIAlertController(title: "Delete Category", message: "Are You sure you want to delete??", preferredStyle: .alert)
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in}
@@ -153,7 +158,10 @@ extension MainVC {
                 let index = self.collecView.indexPath(for: cell)
                 self.collecView.deleteItems(at: [index!])
                 self.filteredCategories.remove(at: index!.row)
-                self.items = self.filteredCategories
+                if let idx = self.items.index(forKey: cell.categoryLbl.text!) {
+                    self.items.remove(at: idx)
+                    print(self.items)
+                }
                 DataModel().deleteCategory(cell.categoryLbl.text!)
             }
             alertController.addAction(destroyAction)
@@ -163,6 +171,7 @@ extension MainVC {
         alertController.addAction(destroyAction)
         self.present(alertController, animated: true) {}
     }
+    
     func selectedCategory(cell: CategoryViewCell) {
         //guard let index = collecView.indexPath(for: cell)?.row else { return }
         //appearBlackViewFrame()
@@ -190,47 +199,58 @@ extension MainVC {
         navigationController?.navigationBar.backgroundColor = UIColor.clear
     }
     
-    func addCategory(_ category:String) {
-        if items.contains(where: {$0.caseInsensitiveCompare(category) == .orderedSame}) {
+    func addCategory(_ category:String, _ iconNumber:Int?) {
+        var iconName = String()
+        if items.keys.first(where: { $0.lowercased().contains(category.lowercased()) }) != nil {
             let alert = UIAlertController(title: "Duplicate Category", message: "Category already exists", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            items.append(category)
-            filteredCategories = items
+            if let _ = iconNumber {
+                iconName = "ctrgy_ic_\(String(describing: iconNumber!))"
+                items[category] = UIImage(named: iconName)
+            } else {
+                iconName = "default_category"
+                items[category] = UIImage(named: iconName)
+            }
+            filteredCategories.append(category)
             let indexPath = IndexPath(row: self.filteredCategories.count - 1, section: 0)
-            self.collecView?.insertItems(at: [indexPath])
+            self.collecView.reloadData()
             self.collecView.scrollToItem(at: indexPath, at: .bottom , animated: true)
             
-            DispatchQueue.main.async { DataModel().addCategory(self.items.count,self.filteredCategories[self.filteredCategories.count - 1],"")
+            DispatchQueue.main.async {
+                let imgIcon: Data? = UIImage(named: iconName)!.pngData()
+                DataModel().addCategory(self.items.count,category,imgIcon)
             }
         }
     }
     
-    func editCategory(_ oldCategory:String,_ newCategory:String) {
-        if items.contains(where: {$0.caseInsensitiveCompare(newCategory) == .orderedSame}) {
+    func editCategory(_ oldCategory:String,_ newCategory:String, _ iconNumber:Int?) {
+        var iconName = String()
+        var imgIcon: Data?
+        if items.keys.first(where: { $0.lowercased().contains(oldCategory.lowercased()) }) != nil {
             let alert = UIAlertController(title: "Duplicate Category", message: "Category already exists", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
-            var indexPath:Int?
+            if let _ = iconNumber {
+                iconName = "ctrgy_ic_\(String(describing: iconNumber!))"
+                items[oldCategory] = UIImage(named: iconName)
+                imgIcon = UIImage(named: "ctrgy_ic_\(String(describing: iconNumber))")!.pngData()
+            }
             for (index,item) in items.enumerated() {
-                if item.elementsEqual(oldCategory) {
-                    indexPath = index
-                    items[index] = newCategory
+                if item.key.elementsEqual(oldCategory) {
+                    //indexPath = index
+                    //items.in = newCategory
                     break
                 }
             }
-            filteredCategories = items
+            filteredCategories = utils.transferDataDictToArr(items)
             collecView.reloadData()
-            //if let index = indexPath {
-              //  collecView.insertItems(at: [IndexPath(index: index)])
-            //}
             
             DispatchQueue.main.async {
-                DataModel().updateCategoryName(oldCategory, newCategory)
+                DataModel().updateCategory(oldCategory, newCategory,imgIcon)
             }
-            isEditCategory = false
         }
     }
     

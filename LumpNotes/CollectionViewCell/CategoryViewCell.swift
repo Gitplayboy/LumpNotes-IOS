@@ -17,6 +17,7 @@ class CategoryViewCell: UICollectionViewCell {
     var delegate: CategoryViewCellDelegate?
     @IBOutlet weak var iconView: UIView!
     @IBOutlet weak var categoryLbl: UILabel!
+    @IBOutlet weak var iconImg: UIImageView!
     
     
     @IBAction func onMenuClick() {
