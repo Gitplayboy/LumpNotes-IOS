@@ -228,23 +228,22 @@ extension MainVC {
     func editCategory(_ oldCategory:String,_ newCategory:String, _ iconNumber:Int?) {
         var iconName = String()
         var imgIcon: Data?
-        if items.keys.first(where: { $0.lowercased().contains(oldCategory.lowercased()) }) != nil {
-            let alert = UIAlertController(title: "Duplicate Category", message: "Category already exists", preferredStyle: UIAlertController.Style.alert)
+        if newCategory.isEmpty {
+            let alert = UIAlertController(title: "Empty Category", message: "Category cannot be empty", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         } else {
             if let _ = iconNumber {
                 iconName = "ctrgy_ic_\(String(describing: iconNumber!))"
                 items[oldCategory] = UIImage(named: iconName)
-                imgIcon = UIImage(named: "ctrgy_ic_\(String(describing: iconNumber))")!.pngData()
+                imgIcon = UIImage(named: iconName)!.pngData()
             }
-            for (index,item) in items.enumerated() {
-                if item.key.elementsEqual(oldCategory) {
-                    //indexPath = index
-                    //items.in = newCategory
-                    break
-                }
-            }
+            
+            //Updating the dictionary with new key value pair
+            let tempValue = items[oldCategory]
+            items.removeValue(forKey: oldCategory)
+            items[newCategory] = tempValue
+            
             filteredCategories = utils.transferDataDictToArr(items)
             collecView.reloadData()
             
