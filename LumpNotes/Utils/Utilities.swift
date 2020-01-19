@@ -87,6 +87,10 @@ class Utilities {
         var categoryArr = [String:UIImage]()
         let categoryArrObj = DataModel().fetchCategories()
         for categories in categoryArrObj {
+            if categories.category_name!.elementsEqual("Market") {
+                print("am here")
+                print(categories.category_icon)
+            }
             if let icon = categories.category_icon {
                 categoryArr[categories.category_name!] = UIImage(data: icon)
             } else {

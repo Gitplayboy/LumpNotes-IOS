@@ -274,6 +274,9 @@ extension MainVC {
                 items[oldCategory] = UIImage(named: iconName)
                 imgIcon = UIImage(named: iconName)!.pngData()
             }
+            DispatchQueue.main.async {
+                DataModel().updateCategory(oldCategory, newCategory,imgIcon)
+            }
             
             //Updating the dictionary with new key value pair
             let tempValue = items[oldCategory]
@@ -283,9 +286,7 @@ extension MainVC {
             filteredCategories = utils.transferDataDictToArr(items)
             collecView.reloadData()
             
-            DispatchQueue.main.async {
-                DataModel().updateCategory(oldCategory, newCategory,imgIcon)
-            }
+            
         }
     }
     

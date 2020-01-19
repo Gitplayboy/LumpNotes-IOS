@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
+class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
     var blurEffectView:UIVisualEffectView?
     var lblText : String?
     var categoryTxt : String?
@@ -56,23 +56,14 @@ class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddEditCategoryCell
-        addCatgryCell.backgroundColor = .systemOrange
+        addCatgryCell.iconBtn.addTarget(self, action: #selector(selectedIcon(iconBtn:)), for: .touchUpInside)
+        if selectedIconIdx != nil && selectedIconIdx! - 1 == indexPath.row {
+            addCatgryCell.backgroundColor = .black
+        } else {
+            addCatgryCell.backgroundColor = .systemOrange
+        }
         addCatgryCell.iconBtn.setBackgroundImage(UIImage(named:"ctrgy_ic_\(indexPath.row + 1)"), for: .normal)
         return addCatgryCell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("my index path is \(indexPath.row)")
-        selectedIconIdx = indexPath.row + 1
-        let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddEditCategoryCell
-        addCatgryCell.backgroundColor = .black
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        print("my index path is \(indexPath.row)")
-        let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddEditCategoryCell
-        
-        //addCatgryCell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     }
     
     // MARK: - Text field Delegate functions
@@ -80,6 +71,18 @@ class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollection
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       textField.resignFirstResponder()
       return true
+    }
+    
+    @objc func selectedIcon( iconBtn:UIButton) {
+        let cell = iconBtn.superview?.superview! as! AddEditCategoryCell
+        if cell.backgroundColor == .black {
+            selectedIconIdx = nil
+            iconCollecView.reloadData()
+        } else {
+            let cell = iconBtn.superview?.superview! as! AddEditCategoryCell
+            selectedIconIdx = self.iconCollecView.indexPath(for: cell)!.row + 1
+            iconCollecView.reloadData()
+        }
     }
 }
 
