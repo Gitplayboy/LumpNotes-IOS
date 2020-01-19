@@ -44,6 +44,15 @@ class Utilities {
           searchBar.layer.shadowColor = UIColor.gray.cgColor
     }
     
+    func applyDropShadowTopBar(_ topView:UIView) {
+        topView.layer.shadowColor = UIColor.black.cgColor
+        topView.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        topView.layer.shadowRadius = 3.0
+        topView.layer.shadowOpacity = 0.5
+        topView.layer.masksToBounds = false
+        topView.layer.shadowPath = UIBezierPath(roundedRect: topView.bounds, cornerRadius: topView.layer.cornerRadius).cgPath
+    }
+    
     func applyDropShadowCollectionCell(_ categoryCell:UICollectionViewCell) {
         categoryCell.layer.shadowColor = UIColor.black.cgColor
         categoryCell.layer.shadowOffset = CGSize(width: 0, height: 2.0)
@@ -87,10 +96,6 @@ class Utilities {
         var categoryArr = [String:UIImage]()
         let categoryArrObj = DataModel().fetchCategories()
         for categories in categoryArrObj {
-            if categories.category_name!.elementsEqual("Market") {
-                print("am here")
-                print(categories.category_icon)
-            }
             if let icon = categories.category_icon {
                 categoryArr[categories.category_name!] = UIImage(data: icon)
             } else {

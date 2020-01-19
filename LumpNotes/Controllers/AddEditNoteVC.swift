@@ -1,5 +1,5 @@
 //
-//  SearchNotFoundVC.swift
+//  AddEditNoteVC.swift
 //  LumpNotes
 //
 //  Created by vibin joby on 2020-01-19.
@@ -8,10 +8,11 @@
 
 import UIKit
 
-class SearchNotFoundVC: UIViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = Utilities().hexStringToUIColor(hex: "#F7F7F7")
-    }
+class AddEditNoteVC: UIViewController {
 
+    @IBOutlet weak var topView: UIView!
+    override func viewDidLoad() {
+        topView.layer.cornerRadius = 20
+        super.viewDidLoad()
+    }
 }

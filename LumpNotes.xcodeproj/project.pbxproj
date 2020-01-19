@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		45485D4C23CEE91D00DF9BE9 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45485D4B23CEE91C00DF9BE9 /* SFProDisplay-Bold.ttf */; };
-		45485D5023CEF44400DF9BE9 /* AddEditCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45485D4F23CEF44400DF9BE9 /* AddEditCategoryCell.swift */; };
 		45485D5323CEF5EE00DF9BE9 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72CA23CC003E00A2001E /* MainVC.swift */; };
 		4548858623CCD11E0072BB82 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4548858523CCD11E0072BB82 /* DataModel.swift */; };
 		454F72C723CC003E00A2001E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72C623CC003E00A2001E /* AppDelegate.swift */; };
@@ -21,16 +20,17 @@
 		454F72F523CC075B00A2001E /* impact_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454F72F123CC075B00A2001E /* impact_regular.ttf */; };
 		454F72F623CC075B00A2001E /* segoe_ui.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454F72F223CC075B00A2001E /* segoe_ui.ttf */; };
 		454F72F723CC075B00A2001E /* atiba.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 454F72F323CC075B00A2001E /* atiba.ttf */; };
-		454F72FD23CC29FA00A2001E /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72FC23CC29FA00A2001E /* CategoryViewCell.swift */; };
+		4571016423D436B300A45AB2 /* AllNotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571016323D436B300A45AB2 /* AllNotesVC.swift */; };
+		4571017623D43D9A00A45AB2 /* NotesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571017323D43D9A00A45AB2 /* NotesCell.swift */; };
+		4571017723D43D9A00A45AB2 /* AddEditCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571017423D43D9A00A45AB2 /* AddEditCategoryCell.swift */; };
+		4571017823D43D9A00A45AB2 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571017523D43D9A00A45AB2 /* CategoryViewCell.swift */; };
+		4571017B23D4CD9500A45AB2 /* AddEditNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571017A23D4CD9500A45AB2 /* AddEditNoteVC.swift */; };
 		459659BE23D37BFC007B5B69 /* AddEditCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */; };
-		459659C023D3D938007B5B69 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459659BF23D3D938007B5B69 /* EmptyViewController.swift */; };
-		459659C223D42731007B5B69 /* SearchNotFoundVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459659C123D42731007B5B69 /* SearchNotFoundVC.swift */; };
 		45F01E0123CC4A320076D02F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F01E0023CC4A320076D02F /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		45485D4B23CEE91C00DF9BE9 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
-		45485D4F23CEF44400DF9BE9 /* AddEditCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCategoryCell.swift; sourceTree = "<group>"; };
 		4548858523CCD11E0072BB82 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		454F72C323CC003E00A2001E /* LumpNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LumpNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		454F72C623CC003E00A2001E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,10 +45,13 @@
 		454F72F123CC075B00A2001E /* impact_regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = impact_regular.ttf; path = "../../../../../Downloads/custom fonts/impact_regular.ttf"; sourceTree = "<group>"; };
 		454F72F223CC075B00A2001E /* segoe_ui.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = segoe_ui.ttf; path = "../../../../../Downloads/custom fonts/segoe_ui.ttf"; sourceTree = "<group>"; };
 		454F72F323CC075B00A2001E /* atiba.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = atiba.ttf; path = "../../../../../Downloads/custom fonts/atiba.ttf"; sourceTree = "<group>"; };
-		454F72FC23CC29FA00A2001E /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
+		4571016323D436B300A45AB2 /* AllNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesVC.swift; sourceTree = "<group>"; };
+		4571016523D43C7400A45AB2 /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesCell.swift; path = LumpNotes/Controllers/NotesCell.swift; sourceTree = SOURCE_ROOT; };
+		4571017323D43D9A00A45AB2 /* NotesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
+		4571017423D43D9A00A45AB2 /* AddEditCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditCategoryCell.swift; sourceTree = "<group>"; };
+		4571017523D43D9A00A45AB2 /* CategoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
+		4571017A23D4CD9500A45AB2 /* AddEditNoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditNoteVC.swift; sourceTree = "<group>"; };
 		459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditCategoryVC.swift; sourceTree = "<group>"; };
-		459659BF23D3D938007B5B69 /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
-		459659C123D42731007B5B69 /* SearchNotFoundVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNotFoundVC.swift; sourceTree = "<group>"; };
 		45F01E0023CC4A320076D02F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,8 +69,7 @@
 		45485D5123CEF44C00DF9BE9 /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				454F72FC23CC29FA00A2001E /* CategoryViewCell.swift */,
-				45485D4F23CEF44400DF9BE9 /* AddEditCategoryCell.swift */,
+				4571016523D43C7400A45AB2 /* NotesCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -102,6 +104,7 @@
 				454F72C623CC003E00A2001E /* AppDelegate.swift */,
 				454F72C823CC003E00A2001E /* SceneDelegate.swift */,
 				454F72F823CC290F00A2001E /* Controllers */,
+				4571016E23D43D1600A45AB2 /* Cells */,
 				45485D5123CEF44C00DF9BE9 /* CollectionViewCell */,
 				4548858423CCD0F30072BB82 /* CoreData */,
 				454F72DD23CC007A00A2001E /* Custom Fonts */,
@@ -132,10 +135,20 @@
 			children = (
 				454F72CA23CC003E00A2001E /* MainVC.swift */,
 				459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */,
-				459659BF23D3D938007B5B69 /* EmptyViewController.swift */,
-				459659C123D42731007B5B69 /* SearchNotFoundVC.swift */,
+				4571016323D436B300A45AB2 /* AllNotesVC.swift */,
+				4571017A23D4CD9500A45AB2 /* AddEditNoteVC.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4571016E23D43D1600A45AB2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4571017423D43D9A00A45AB2 /* AddEditCategoryCell.swift */,
+				4571017523D43D9A00A45AB2 /* CategoryViewCell.swift */,
+				4571017323D43D9A00A45AB2 /* NotesCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		45F01DFF23CC4A140076D02F /* Utils */ = {
@@ -222,17 +235,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4571017B23D4CD9500A45AB2 /* AddEditNoteVC.swift in Sources */,
 				45485D5323CEF5EE00DF9BE9 /* MainVC.swift in Sources */,
 				459659BE23D37BFC007B5B69 /* AddEditCategoryVC.swift in Sources */,
-				459659C023D3D938007B5B69 /* EmptyViewController.swift in Sources */,
+				4571016423D436B300A45AB2 /* AllNotesVC.swift in Sources */,
 				4548858623CCD11E0072BB82 /* DataModel.swift in Sources */,
 				45F01E0123CC4A320076D02F /* Utilities.swift in Sources */,
+				4571017623D43D9A00A45AB2 /* NotesCell.swift in Sources */,
 				454F72D123CC003E00A2001E /* LumpNotes.xcdatamodeld in Sources */,
-				45485D5023CEF44400DF9BE9 /* AddEditCategoryCell.swift in Sources */,
-				459659C223D42731007B5B69 /* SearchNotFoundVC.swift in Sources */,
+				4571017723D43D9A00A45AB2 /* AddEditCategoryCell.swift in Sources */,
 				454F72C723CC003E00A2001E /* AppDelegate.swift in Sources */,
 				454F72C923CC003E00A2001E /* SceneDelegate.swift in Sources */,
-				454F72FD23CC29FA00A2001E /* CategoryViewCell.swift in Sources */,
+				4571017823D43D9A00A45AB2 /* CategoryViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

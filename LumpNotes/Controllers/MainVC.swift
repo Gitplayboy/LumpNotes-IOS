@@ -48,13 +48,19 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     // MARK: - Collection View Delegate functions
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if filteredCategories.count < 1 {
+        if items.count > 0 {
+            if filteredCategories.count < 1 {
+                emptyVC.isHidden = false
+                sortBtn.isHidden = true
+            } else {
+                emptyVC.isHidden = true
+                searchNotFoundVC.isHidden = true
+                sortBtn.isHidden = false
+            }
+        } else {
+            searchNotFoundVC.isHidden = true
             emptyVC.isHidden = false
             sortBtn.isHidden = true
-        } else {
-            emptyVC.isHidden = true
-            searchNotFoundVC.isHidden = true
-            sortBtn.isHidden = false
         }
         return filteredCategories.count
     }
@@ -275,7 +281,7 @@ extension MainVC {
     func editCategory(_ oldCategory:String,_ newCategory:String, _ iconNumber:Int?) {
         var iconName = String()
         var imgIcon: Data?
-        if newCategory.isEmpty {
+        if newCategory.isEmpty || newCategory.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             let alert = UIAlertController(title: "Empty Category", message: "Category cannot be empty", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -303,6 +309,7 @@ extension MainVC {
     
     func applyPresetConstraints() {
         utils.applyDropShadowSearchBar(searchBar)
+        //utils.applyDropShadowTopBar(topView)
         topView.layer.cornerRadius = 20
         let layout = collecView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.estimatedItemSize = CGSize(width: 160, height: 160)
