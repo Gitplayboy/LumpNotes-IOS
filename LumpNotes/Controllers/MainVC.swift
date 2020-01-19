@@ -19,6 +19,7 @@ extension UIColor {
 
 class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate,CategoryViewCellDelegate {
     
+    @IBOutlet weak var searchNotFoundVC: UIView!
     @IBOutlet weak var sortBtn: UIButton!
     @IBOutlet weak var emptyVC: UIView!
     let blackView = UIView()
@@ -52,6 +53,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             sortBtn.isHidden = true
         } else {
             emptyVC.isHidden = true
+            searchNotFoundVC.isHidden = true
             sortBtn.isHidden = false
         }
         return filteredCategories.count
@@ -95,20 +97,29 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     // MARK: - Text field Delegate functions
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        var isFound = false
         if searchBar.text != nil && !searchBar.text!.isEmpty {
             filteredCategories = []
             for item in items.keys {
                 if item.lowercased().hasPrefix(searchBar!.text!.lowercased()) {
                     filteredCategories.append(item)
+                    isFound = true
                 }
             }
+            if isFound {
+                collecView.reloadData()
+            } else {
+                searchNotFoundVC.isHidden = false
+                sortBtn.isHidden = true
+            }
+            
         } else {
             filteredCategories = []
             for (_,item) in items.enumerated() {
                 filteredCategories.append(item.key)
             }
+            collecView.reloadData()
         }
-        collecView.reloadData()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {   

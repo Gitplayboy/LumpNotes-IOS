@@ -24,6 +24,7 @@
 		454F72FD23CC29FA00A2001E /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72FC23CC29FA00A2001E /* CategoryViewCell.swift */; };
 		459659BE23D37BFC007B5B69 /* AddEditCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */; };
 		459659C023D3D938007B5B69 /* EmptyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459659BF23D3D938007B5B69 /* EmptyViewController.swift */; };
+		459659C223D42731007B5B69 /* SearchNotFoundVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459659C123D42731007B5B69 /* SearchNotFoundVC.swift */; };
 		45F01E0123CC4A320076D02F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F01E0023CC4A320076D02F /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		454F72FC23CC29FA00A2001E /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditCategoryVC.swift; sourceTree = "<group>"; };
 		459659BF23D3D938007B5B69 /* EmptyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyViewController.swift; sourceTree = "<group>"; };
+		459659C123D42731007B5B69 /* SearchNotFoundVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNotFoundVC.swift; sourceTree = "<group>"; };
 		45F01E0023CC4A320076D02F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +133,7 @@
 				454F72CA23CC003E00A2001E /* MainVC.swift */,
 				459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */,
 				459659BF23D3D938007B5B69 /* EmptyViewController.swift */,
+				459659C123D42731007B5B69 /* SearchNotFoundVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				45F01E0123CC4A320076D02F /* Utilities.swift in Sources */,
 				454F72D123CC003E00A2001E /* LumpNotes.xcdatamodeld in Sources */,
 				45485D5023CEF44400DF9BE9 /* AddEditCategoryCell.swift in Sources */,
+				459659C223D42731007B5B69 /* SearchNotFoundVC.swift in Sources */,
 				454F72C723CC003E00A2001E /* AppDelegate.swift in Sources */,
 				454F72C923CC003E00A2001E /* SceneDelegate.swift in Sources */,
 				454F72FD23CC29FA00A2001E /* CategoryViewCell.swift in Sources */,

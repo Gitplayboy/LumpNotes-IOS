@@ -98,9 +98,16 @@
                                 </connections>
                             </collectionView>
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h33-d9-Mkq">
-                                <rect key="frame" x="0.0" y="141" width="336" height="567"/>
+                                <rect key="frame" x="0.0" y="225" width="375" height="567"/>
                                 <connections>
                                     <segue destination="eoX-Z4-ddc" kind="embed" identifier="EmptyChildSB" id="iw4-1t-yWP"/>
+                                </connections>
+                            </containerView>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TtX-dm-U0w">
+                                <rect key="frame" x="0.0" y="225" width="375" height="567"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="669-5d-PgL" kind="embed" id="tHk-kA-9h5"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYB-BO-zDz">
@@ -233,13 +240,14 @@
                         <outlet property="collecView" destination="yTP-sT-bY8" id="ela-Xw-x7P"/>
                         <outlet property="emptyVC" destination="h33-d9-Mkq" id="3YE-3g-iJH"/>
                         <outlet property="searchBar" destination="PAj-ef-qv6" id="f3L-Qh-gDx"/>
+                        <outlet property="searchNotFoundVC" destination="TtX-dm-U0w" id="6pZ-3v-Q9S"/>
                         <outlet property="sortBtn" destination="bVf-Kc-RJx" id="hiJ-Ce-8y7"/>
                         <outlet property="topView" destination="Mg0-WL-oZ4" id="IcO-5v-2v8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1044.9275362318842" y="91.741071428571431"/>
+            <point key="canvasLocation" x="1044" y="91.625615763546804"/>
         </scene>
         <!--Add Edit CategoryVC-->
         <scene sceneID="l8p-Dm-C1m">
@@ -411,18 +419,18 @@
             <objects>
                 <viewController id="eoX-Z4-ddc" customClass="EmptyViewController" customModule="LumpNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zhh-Q5-K52">
-                        <rect key="frame" x="0.0" y="0.0" width="336" height="567"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_category_icon" translatesAutoresizingMaskIntoConstraints="NO" id="abP-eP-rB3">
-                                <rect key="frame" x="109.66666666666669" y="223" width="117" height="117"/>
+                                <rect key="frame" x="129" y="223" width="117" height="117"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="117" id="XYy-6B-6Q5"/>
                                     <constraint firstAttribute="width" constant="117" id="xH7-HY-Khi"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories help you organize data." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-zw-fIH">
-                                <rect key="frame" x="-10.666666666666657" y="88" width="357.33333333333326" height="29"/>
+                                <rect key="frame" x="9" y="88" width="357" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="357" id="9bI-g9-DB0"/>
                                     <constraint firstAttribute="height" constant="29" id="kIC-yd-yTh"/>
@@ -432,7 +440,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the bottom right button to create a category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRq-Bh-XYb">
-                                <rect key="frame" x="2.6666666666666572" y="147" width="331" height="18"/>
+                                <rect key="frame" x="22" y="147" width="331" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -447,11 +455,56 @@
                             <constraint firstItem="abP-eP-rB3" firstAttribute="top" secondItem="TRq-Bh-XYb" secondAttribute="bottom" constant="58" id="ZeH-Sp-jDu"/>
                             <constraint firstItem="fNZ-zw-fIH" firstAttribute="top" secondItem="zhh-Q5-K52" secondAttribute="topMargin" constant="44" id="t9a-hS-6u8"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="u0r-go-qYF"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8cB-r9-pIb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1582.608695652174" y="-483.14732142857139"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="jth-cr-iny">
+            <objects>
+                <viewController id="669-5d-PgL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rxU-86-kYO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="388-33-z9S">
+                                <rect key="frame" x="166.66666666666666" y="111" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_category_icon" translatesAutoresizingMaskIntoConstraints="NO" id="xGw-m1-87K">
+                                <rect key="frame" x="129" y="229" width="117" height="117"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="117" id="NE3-UK-hne"/>
+                                    <constraint firstAttribute="width" constant="117" id="ajZ-9D-pUD"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No matching categories found!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWS-PG-oYa">
+                                <rect key="frame" x="69.666666666666686" y="155" width="236" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="xGw-m1-87K" firstAttribute="centerX" secondItem="rxU-86-kYO" secondAttribute="centerX" id="0Aj-K9-8u5"/>
+                            <constraint firstItem="388-33-z9S" firstAttribute="centerX" secondItem="rxU-86-kYO" secondAttribute="centerX" id="9Hu-D6-H1x"/>
+                            <constraint firstItem="KWS-PG-oYa" firstAttribute="centerX" secondItem="rxU-86-kYO" secondAttribute="centerX" id="GAz-Fb-Wab"/>
+                            <constraint firstItem="xGw-m1-87K" firstAttribute="top" secondItem="KWS-PG-oYa" secondAttribute="bottom" constant="53" id="LpQ-5B-30u"/>
+                            <constraint firstItem="KWS-PG-oYa" firstAttribute="top" secondItem="388-33-z9S" secondAttribute="bottom" constant="23" id="TAl-I6-Iha"/>
+                            <constraint firstItem="388-33-z9S" firstAttribute="top" secondItem="Eul-nL-4UA" secondAttribute="top" constant="67" id="c3A-rc-fMB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Eul-nL-4UA"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dat-WU-drZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1682" y="490"/>
         </scene>
     </scenes>
     <resources>
