@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="s5r-GK-mOx">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -24,11 +24,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainVC" customModule="LumpNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yTP-sT-bY8">
-                                <rect key="frame" x="20" y="225" width="374" height="637"/>
+                                <rect key="frame" x="20" y="225" width="335" height="553"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8LD-fl-dXH">
                                     <size key="itemSize" width="160" height="144"/>
@@ -98,13 +98,13 @@
                                 </connections>
                             </collectionView>
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h33-d9-Mkq">
-                                <rect key="frame" x="0.0" y="225" width="414" height="651"/>
+                                <rect key="frame" x="0.0" y="141" width="336" height="567"/>
                                 <connections>
                                     <segue destination="eoX-Z4-ddc" kind="embed" identifier="EmptyChildSB" id="iw4-1t-yWP"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYB-BO-zDz">
-                                <rect key="frame" x="344" y="802" width="50" height="50"/>
+                                <rect key="frame" x="305" y="718" width="50" height="50"/>
                                 <color key="backgroundColor" red="0.3017886877" green="0.035709355030000001" blue="0.52944475410000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ZmR-Tg-oVx"/>
@@ -120,13 +120,13 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mg0-WL-oZ4">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="166"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="166"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygI-yj-ex4">
-                                        <rect key="frame" x="181" y="50" width="52" height="25.333333333333329"/>
+                                        <rect key="frame" x="161.66666666666666" y="50" width="51.666666666666657" height="25.333333333333329"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LUMP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chd-sy-AMv">
-                                                <rect key="frame" x="6.6666666666666572" y="1.6666666666666643" width="39" height="22"/>
+                                                <rect key="frame" x="6.3333333333333428" y="1.6666666666666643" width="39" height="22"/>
                                                 <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="18"/>
                                                 <color key="textColor" red="0.3017886877" green="0.035709355030000001" blue="0.52944475410000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <nil key="highlightedColor"/>
@@ -141,7 +141,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="note" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBC-ts-MxJ">
-                                        <rect key="frame" x="238" y="52" width="44" height="24"/>
+                                        <rect key="frame" x="218.33333333333334" y="52" width="44.000000000000028" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="8Yy-fx-7jy"/>
                                             <constraint firstAttribute="width" constant="44" id="hYD-rq-QIQ"/>
@@ -151,7 +151,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PAj-ef-qv6">
-                                        <rect key="frame" x="20" y="95" width="374" height="48"/>
+                                        <rect key="frame" x="20" y="95" width="335" height="48"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="kHl-ZX-tdU"/>
                                         </constraints>
@@ -163,7 +163,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Dz-rq-ISt">
-                                        <rect key="frame" x="353" y="106" width="25" height="25"/>
+                                        <rect key="frame" x="314" y="106" width="25" height="25"/>
                                         <state key="normal" image="search"/>
                                     </button>
                                 </subviews>
@@ -192,7 +192,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVf-Kc-RJx">
-                                <rect key="frame" x="372" y="184" width="22" height="21"/>
+                                <rect key="frame" x="333" y="184" width="22" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="icB-uE-JWE"/>
                                     <constraint firstAttribute="width" constant="22" id="mgw-Dw-NuO"/>
@@ -246,14 +246,14 @@
             <objects>
                 <viewController storyboardIdentifier="sbPopupId" id="iot-ft-61R" customClass="AddEditCategoryVC" customModule="LumpNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="o7e-2y-AfR">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3md-rX-gxB">
-                                <rect key="frame" x="54" y="296" width="306" height="304"/>
+                                <rect key="frame" x="34.666666666666657" y="254" width="306" height="304"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add new category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bbp-Ib-9aJ">
-                                        <rect key="frame" x="50.333333333333329" y="39" width="205.66666666666669" height="30"/>
+                                        <rect key="frame" x="50.000000000000014" y="39" width="205.66666666666669" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -272,7 +272,7 @@
                                         </connections>
                                     </textField>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BC1-Cy-9J6">
-                                        <rect key="frame" x="18.666666666666686" y="138" width="269" height="103"/>
+                                        <rect key="frame" x="18.333333333333343" y="138" width="269" height="103"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="k1U-m4-o3L">
                                             <size key="itemSize" width="31" height="32"/>
@@ -394,7 +394,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s5r-GK-mOx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6M8-ba-JjT">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -411,18 +411,18 @@
             <objects>
                 <viewController id="eoX-Z4-ddc" customClass="EmptyViewController" customModule="LumpNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zhh-Q5-K52">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="651"/>
+                        <rect key="frame" x="0.0" y="0.0" width="336" height="567"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_category_icon" translatesAutoresizingMaskIntoConstraints="NO" id="abP-eP-rB3">
-                                <rect key="frame" x="148.66666666666666" y="223" width="116.99999999999997" height="117"/>
+                                <rect key="frame" x="109.66666666666669" y="223" width="117" height="117"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="117" id="XYy-6B-6Q5"/>
                                     <constraint firstAttribute="width" constant="117" id="xH7-HY-Khi"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories help you organize data." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-zw-fIH">
-                                <rect key="frame" x="28.666666666666657" y="88" width="357" height="29"/>
+                                <rect key="frame" x="-10.666666666666657" y="88" width="357.33333333333326" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="357" id="9bI-g9-DB0"/>
                                     <constraint firstAttribute="height" constant="29" id="kIC-yd-yTh"/>
@@ -432,7 +432,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the bottom right button to create a category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRq-Bh-XYb">
-                                <rect key="frame" x="41.666666666666657" y="147" width="331" height="18"/>
+                                <rect key="frame" x="2.6666666666666572" y="147" width="331" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

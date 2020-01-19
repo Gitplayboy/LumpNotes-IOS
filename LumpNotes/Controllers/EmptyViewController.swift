@@ -15,6 +15,4 @@ class EmptyViewController: UIViewController {
         view.backgroundColor = Utilities().hexStringToUIColor(hex: "#F7F7F7")
         view.isHidden = false
     }
-    
-
 }

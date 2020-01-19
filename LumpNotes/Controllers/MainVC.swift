@@ -116,16 +116,41 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     @IBAction func onAddEditCategoryClick() {
-        let popup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "sbPopupId") as! AddEditCategoryVC
-        if isEditCategory {
+        if !isEditCategory {
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in}
+            alertController.addAction(cancelAction)
+
+            let addNote = UIAlertAction(title: "Add Note", style: .default) { (action) in
+                // TO-DO call add notes page
+            }
+            alertController.addAction(addNote)
+            
+            let addCategory = UIAlertAction(title: "Add Category", style: .default) { (action) in
+                let popup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "sbPopupId") as! AddEditCategoryVC
+                if self.isEditCategory {
+                    popup.lblText = "Edit Category"
+                    popup.categoryTxt = self.currentCategory
+                }
+                self.addChild(popup)
+                popup.view.frame = self.view.frame
+                self.view.addSubview(popup.view)
+                popup.didMove(toParent: self)
+                self.isEditCategory = false
+            }
+            alertController.addAction(addCategory)
+            self.present(alertController, animated: true) {}
+        } else {
+            let popup = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "sbPopupId") as! AddEditCategoryVC
             popup.lblText = "Edit Category"
-            popup.categoryTxt = currentCategory
+            popup.categoryTxt = self.currentCategory
+            self.addChild(popup)
+            popup.view.frame = self.view.frame
+            self.view.addSubview(popup.view)
+            popup.didMove(toParent: self)
+            self.isEditCategory = false
         }
-        self.addChild(popup)
-        popup.view.frame = self.view.frame
-        self.view.addSubview(popup.view)
-        popup.didMove(toParent: self)
-        isEditCategory = false
     }
     
     
@@ -212,6 +237,7 @@ extension MainVC {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = UIColor.clear
+        navigationController?.navigationBar.barStyle = .black
     }
     
     func addCategory(_ category:String, _ iconNumber:Int?) {

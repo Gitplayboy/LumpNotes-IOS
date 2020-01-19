@@ -65,17 +65,14 @@ class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollection
         print("my index path is \(indexPath.row)")
         selectedIconIdx = indexPath.row + 1
         let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddEditCategoryCell
-        addCatgryCell.isHighlighted = true
-        addCatgryCell.isSelected = true
-        
-        addCatgryCell.iconBtn.isSelected = true
+        addCatgryCell.backgroundColor = .black
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         print("my index path is \(indexPath.row)")
         let addCatgryCell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! AddEditCategoryCell
-        addCatgryCell.iconBtn.isHighlighted = true
-        addCatgryCell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
+        
+        //addCatgryCell.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
     }
     
     // MARK: - Text field Delegate functions
