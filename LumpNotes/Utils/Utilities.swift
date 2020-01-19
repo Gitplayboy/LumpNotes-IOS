@@ -94,7 +94,7 @@ class Utilities {
             }
         }
         if categoryArr.isEmpty {
-            return loadPropertyList()
+            return [:]//loadPropertyList()
         }
         return categoryArr
     }

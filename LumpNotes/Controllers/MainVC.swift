@@ -19,6 +19,8 @@ extension UIColor {
 
 class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate,CategoryViewCellDelegate {
     
+    @IBOutlet weak var sortBtn: UIButton!
+    @IBOutlet weak var emptyVC: UIView!
     let blackView = UIView()
     var isEditCategory = false
     @IBOutlet weak var iconImg: UIImageView!
@@ -45,6 +47,13 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     // MARK: - Collection View Delegate functions
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if filteredCategories.count < 1 {
+            emptyVC.isHidden = false
+            sortBtn.isHidden = true
+        } else {
+            emptyVC.isHidden = true
+            sortBtn.isHidden = false
+        }
         return filteredCategories.count
     }
     
@@ -133,6 +142,12 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 extension MainVC {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EmptyChildSB" {
+            let destinationVC = segue.destination as! EmptyViewController
+            
+        }
+    }
     func showAlertActions(_ cell: CategoryViewCell) {
         let alertController = UIAlertController(title: nil, message: "Do You Want to make changes to the Category ?", preferredStyle: .actionSheet)
 

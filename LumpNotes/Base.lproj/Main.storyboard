@@ -97,6 +97,12 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="dyl-Rg-k9R"/>
                                 </connections>
                             </collectionView>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h33-d9-Mkq">
+                                <rect key="frame" x="0.0" y="225" width="414" height="651"/>
+                                <connections>
+                                    <segue destination="eoX-Z4-ddc" kind="embed" identifier="EmptyChildSB" id="iw4-1t-yWP"/>
+                                </connections>
+                            </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYB-BO-zDz">
                                 <rect key="frame" x="344" y="802" width="50" height="50"/>
                                 <color key="backgroundColor" red="0.3017886877" green="0.035709355030000001" blue="0.52944475410000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -205,12 +211,16 @@
                             <constraint firstItem="Mg0-WL-oZ4" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-88" id="5Mn-NQ-C9R"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bVf-Kc-RJx" secondAttribute="trailing" constant="20" id="EF0-em-Sjr"/>
                             <constraint firstItem="yTP-sT-bY8" firstAttribute="top" secondItem="uO3-Op-2fN" secondAttribute="top" constant="54" id="EnJ-mz-vjL"/>
+                            <constraint firstItem="h33-d9-Mkq" firstAttribute="top" secondItem="uO3-Op-2fN" secondAttribute="top" constant="54" id="Oy9-VY-eQr"/>
                             <constraint firstItem="yTP-sT-bY8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="U2z-Gg-t2f"/>
                             <constraint firstItem="Mg0-WL-oZ4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VfC-oM-1C9"/>
                             <constraint firstItem="uO3-Op-2fN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Z3w-mC-TCg"/>
+                            <constraint firstItem="h33-d9-Mkq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bD5-3y-m7R"/>
+                            <constraint firstAttribute="bottom" secondItem="h33-d9-Mkq" secondAttribute="bottom" constant="20" symbolic="YES" id="faL-Fq-ozl"/>
                             <constraint firstItem="uO3-Op-2fN" firstAttribute="top" secondItem="Mg0-WL-oZ4" secondAttribute="bottom" constant="5" id="nM8-Co-QhP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yTP-sT-bY8" secondAttribute="trailing" constant="20" id="poC-fE-Wui"/>
                             <constraint firstItem="Mg0-WL-oZ4" firstAttribute="centerX" secondItem="yTP-sT-bY8" secondAttribute="centerX" id="qic-N2-6RP"/>
+                            <constraint firstItem="h33-d9-Mkq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sKh-BR-307"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yTP-sT-bY8" secondAttribute="bottom" id="xUB-V8-sJt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -221,7 +231,9 @@
                     <connections>
                         <outlet property="addCategoryBtn" destination="AYB-BO-zDz" id="IFb-d5-9RJ"/>
                         <outlet property="collecView" destination="yTP-sT-bY8" id="ela-Xw-x7P"/>
+                        <outlet property="emptyVC" destination="h33-d9-Mkq" id="3YE-3g-iJH"/>
                         <outlet property="searchBar" destination="PAj-ef-qv6" id="f3L-Qh-gDx"/>
+                        <outlet property="sortBtn" destination="bVf-Kc-RJx" id="hiJ-Ce-8y7"/>
                         <outlet property="topView" destination="Mg0-WL-oZ4" id="IcO-5v-2v8"/>
                     </connections>
                 </viewController>
@@ -394,8 +406,56 @@
             </objects>
             <point key="canvasLocation" x="134.78260869565219" y="91.741071428571431"/>
         </scene>
+        <!--Empty View Controller-->
+        <scene sceneID="13c-84-9BN">
+            <objects>
+                <viewController id="eoX-Z4-ddc" customClass="EmptyViewController" customModule="LumpNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zhh-Q5-K52">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="651"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_category_icon" translatesAutoresizingMaskIntoConstraints="NO" id="abP-eP-rB3">
+                                <rect key="frame" x="148.66666666666666" y="223" width="116.99999999999997" height="117"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="117" id="XYy-6B-6Q5"/>
+                                    <constraint firstAttribute="width" constant="117" id="xH7-HY-Khi"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories help you organize data." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNZ-zw-fIH">
+                                <rect key="frame" x="28.666666666666657" y="88" width="357" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="357" id="9bI-g9-DB0"/>
+                                    <constraint firstAttribute="height" constant="29" id="kIC-yd-yTh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the bottom right button to create a category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRq-Bh-XYb">
+                                <rect key="frame" x="41.666666666666657" y="147" width="331" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fNZ-zw-fIH" firstAttribute="centerX" secondItem="zhh-Q5-K52" secondAttribute="centerX" id="Alj-yT-EGd"/>
+                            <constraint firstItem="TRq-Bh-XYb" firstAttribute="top" secondItem="fNZ-zw-fIH" secondAttribute="bottom" constant="30" id="CnA-vA-44O"/>
+                            <constraint firstItem="TRq-Bh-XYb" firstAttribute="centerX" secondItem="zhh-Q5-K52" secondAttribute="centerX" id="KfD-vj-oOc"/>
+                            <constraint firstItem="abP-eP-rB3" firstAttribute="centerX" secondItem="zhh-Q5-K52" secondAttribute="centerX" id="Vlc-Lq-XEd"/>
+                            <constraint firstItem="abP-eP-rB3" firstAttribute="top" secondItem="TRq-Bh-XYb" secondAttribute="bottom" constant="58" id="ZeH-Sp-jDu"/>
+                            <constraint firstItem="fNZ-zw-fIH" firstAttribute="top" secondItem="zhh-Q5-K52" secondAttribute="topMargin" constant="44" id="t9a-hS-6u8"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8cB-r9-pIb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1582.608695652174" y="-483.14732142857139"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="empty_category_icon" width="117" height="117"/>
         <image name="menu" width="18" height="18"/>
         <image name="search" width="25" height="25"/>
         <image name="sort" width="22" height="21"/>
