@@ -22,9 +22,9 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     @IBOutlet weak var sortBtn: UIButton!
     @IBOutlet weak var emptyVC: UIView!
     let blackView = UIView()
+    var currentCategory = ""
     var isEditCategory = false
     @IBOutlet weak var iconImg: UIImageView!
-    var currentCategory = ""
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var searchBar:UITextField!
     @IBOutlet weak var addCategoryBtn: UIButton!
@@ -103,6 +103,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                 }
             }
         } else {
+            filteredCategories = []
             for (_,item) in items.enumerated() {
                 filteredCategories.append(item.key)
             }
@@ -167,12 +168,6 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 extension MainVC {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "EmptyChildSB" {
-            let destinationVC = segue.destination as! EmptyViewController
-            
-        }
-    }
     func showAlertActions(_ cell: CategoryViewCell) {
         let alertController = UIAlertController(title: nil, message: "Do You Want to make changes to the Category ?", preferredStyle: .actionSheet)
 
