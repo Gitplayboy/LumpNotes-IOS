@@ -26,6 +26,8 @@
 		4571017823D43D9A00A45AB2 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571017523D43D9A00A45AB2 /* CategoryViewCell.swift */; };
 		4571017B23D4CD9500A45AB2 /* AddEditNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571017A23D4CD9500A45AB2 /* AddEditNoteVC.swift */; };
 		459659BE23D37BFC007B5B69 /* AddEditCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */; };
+		45A3951723D5482500F5499C /* AudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3951623D5482500F5499C /* AudioCell.swift */; };
+		45A3951B23D548F500F5499C /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A3951A23D548F500F5499C /* ImageCell.swift */; };
 		45F01E0123CC4A320076D02F /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F01E0023CC4A320076D02F /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,12 +48,13 @@
 		454F72F223CC075B00A2001E /* segoe_ui.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = segoe_ui.ttf; path = "../../../../../Downloads/custom fonts/segoe_ui.ttf"; sourceTree = "<group>"; };
 		454F72F323CC075B00A2001E /* atiba.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = atiba.ttf; path = "../../../../../Downloads/custom fonts/atiba.ttf"; sourceTree = "<group>"; };
 		4571016323D436B300A45AB2 /* AllNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllNotesVC.swift; sourceTree = "<group>"; };
-		4571016523D43C7400A45AB2 /* NotesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotesCell.swift; path = LumpNotes/Controllers/NotesCell.swift; sourceTree = SOURCE_ROOT; };
 		4571017323D43D9A00A45AB2 /* NotesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesCell.swift; sourceTree = "<group>"; };
 		4571017423D43D9A00A45AB2 /* AddEditCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditCategoryCell.swift; sourceTree = "<group>"; };
 		4571017523D43D9A00A45AB2 /* CategoryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 		4571017A23D4CD9500A45AB2 /* AddEditNoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditNoteVC.swift; sourceTree = "<group>"; };
 		459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddEditCategoryVC.swift; sourceTree = "<group>"; };
+		45A3951623D5482500F5499C /* AudioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCell.swift; sourceTree = "<group>"; };
+		45A3951A23D548F500F5499C /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		45F01E0023CC4A320076D02F /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,14 +69,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		45485D5123CEF44C00DF9BE9 /* CollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				4571016523D43C7400A45AB2 /* NotesCell.swift */,
-			);
-			path = CollectionViewCell;
-			sourceTree = "<group>";
-		};
 		4548858423CCD0F30072BB82 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,7 +100,6 @@
 				454F72C823CC003E00A2001E /* SceneDelegate.swift */,
 				454F72F823CC290F00A2001E /* Controllers */,
 				4571016E23D43D1600A45AB2 /* Cells */,
-				45485D5123CEF44C00DF9BE9 /* CollectionViewCell */,
 				4548858423CCD0F30072BB82 /* CoreData */,
 				454F72DD23CC007A00A2001E /* Custom Fonts */,
 				45F01DFF23CC4A140076D02F /* Utils */,
@@ -134,9 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				454F72CA23CC003E00A2001E /* MainVC.swift */,
-				459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */,
 				4571016323D436B300A45AB2 /* AllNotesVC.swift */,
 				4571017A23D4CD9500A45AB2 /* AddEditNoteVC.swift */,
+				459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -147,6 +141,8 @@
 				4571017423D43D9A00A45AB2 /* AddEditCategoryCell.swift */,
 				4571017523D43D9A00A45AB2 /* CategoryViewCell.swift */,
 				4571017323D43D9A00A45AB2 /* NotesCell.swift */,
+				45A3951623D5482500F5499C /* AudioCell.swift */,
+				45A3951A23D548F500F5499C /* ImageCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -237,8 +233,10 @@
 			files = (
 				4571017B23D4CD9500A45AB2 /* AddEditNoteVC.swift in Sources */,
 				45485D5323CEF5EE00DF9BE9 /* MainVC.swift in Sources */,
+				45A3951B23D548F500F5499C /* ImageCell.swift in Sources */,
 				459659BE23D37BFC007B5B69 /* AddEditCategoryVC.swift in Sources */,
 				4571016423D436B300A45AB2 /* AllNotesVC.swift in Sources */,
+				45A3951723D5482500F5499C /* AudioCell.swift in Sources */,
 				4548858623CCD11E0072BB82 /* DataModel.swift in Sources */,
 				45F01E0123CC4A320076D02F /* Utilities.swift in Sources */,
 				4571017623D43D9A00A45AB2 /* NotesCell.swift in Sources */,

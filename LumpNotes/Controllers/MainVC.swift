@@ -24,6 +24,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     @IBOutlet weak var emptyVC: UIView!
     let blackView = UIView()
     var currentCategory = ""
+    var selectedCategoryName = String()
     var isEditCategory = false
     @IBOutlet weak var iconImg: UIImageView!
     @IBOutlet weak var topView: UIView!
@@ -44,7 +45,6 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         applyPresetConstraints()
         setupNavigationBar()
     }
-    
     // MARK: - Collection View Delegate functions
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -75,7 +75,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         
         categoryCell.iconView.layer.cornerRadius = categoryCell.iconView.frame.size.width/2
         categoryCell.iconView.layer.masksToBounds = true
-        categoryCell.iconView.backgroundColor = .random
+        categoryCell.iconView.backgroundColor = .systemRed
         
         utils.applyDropShadowCollectionCell(categoryCell)
         
@@ -89,6 +89,11 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                 cell.contentView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
             }
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCategoryName = filteredCategories[indexPath.row]
+        performSegue(withIdentifier: "AllNotesSB", sender: nil)
     }
 
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
@@ -133,6 +138,15 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
       return true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addNotesSbSegue" {
+            let _ = segue.destination as! AddEditNoteVC
+        } else if segue.identifier == "AllNotesSB" {
+            let destination = segue.destination as! AllNotesVC
+            destination.categoryName = selectedCategoryName
+        }
+    }
+    
     @IBAction func onAddEditCategoryClick() {
         if !isEditCategory {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -141,7 +155,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             alertController.addAction(cancelAction)
 
             let addNote = UIAlertAction(title: "Add Note", style: .default) { (action) in
-                // TO-DO call add notes page
+                self.performSegue(withIdentifier: "addNotesSbSegue", sender: nil)
             }
             alertController.addAction(addNote)
             
@@ -254,7 +268,7 @@ extension MainVC {
     
     func addCategory(_ category:String, _ iconNumber:Int?) {
         var iconName = String()
-        if items.keys.first(where: { $0.lowercased().contains(category.lowercased()) }) != nil {
+        if items.keys.first(where: { $0.lowercased().elementsEqual(category.lowercased()) }) != nil {
             let alert = UIAlertController(title: "Duplicate Category", message: "Category already exists", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)

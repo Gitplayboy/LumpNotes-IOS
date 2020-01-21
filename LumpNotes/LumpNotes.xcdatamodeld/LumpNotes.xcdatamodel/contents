@@ -12,8 +12,8 @@
         <attribute name="note_created_timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="note_description" optional="YES" attributeType="String"/>
         <attribute name="note_last_updated_time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="note_latitude_loc" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="note_longitude_loc" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note_latitude_loc" optional="YES" attributeType="String"/>
+        <attribute name="note_longitude_loc" optional="YES" attributeType="String"/>
         <attribute name="note_title" optional="YES" attributeType="String"/>
         <relationship name="audio" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notes_audio" inverseName="notes" inverseEntity="Notes_audio"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="notes" inverseEntity="Category"/>

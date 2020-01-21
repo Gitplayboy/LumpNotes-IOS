@@ -37,6 +37,12 @@
 		<string>segoe-ui-bold.ttf</string>
 		<string>SFProDisplay-Bold.ttf</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App wants to know your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Application wants to use your location</string>
+	<key>NSCameraUsageDescription</key>
+	<string>You need to grant the app access to your camera in order to take photo</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

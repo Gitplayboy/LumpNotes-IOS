@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 
 class Utilities {
     let blackView = UIView()
@@ -107,6 +109,4 @@ class Utilities {
         }
         return categoryArr
     }
-    
-    
 }
