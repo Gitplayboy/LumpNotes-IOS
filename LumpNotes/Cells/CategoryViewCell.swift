@@ -10,7 +10,6 @@ import UIKit
 
 protocol CategoryViewCellDelegate: class {
     func selectedCategory(cell: CategoryViewCell)
-    func appearBlackViewFrame()
 }
 
 class CategoryViewCell: UICollectionViewCell {

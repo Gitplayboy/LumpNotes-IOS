@@ -11,25 +11,6 @@ import CoreData
 
 class DataModel {
     
-    func saveNotes(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String) {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-          return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let newEntity = NSEntityDescription.insertNewObject(forEntityName: "Notes", into: managedContext)
-        newEntity.setValue(title, forKey: "note_title")
-        newEntity.setValue(description, forKey: "note_description")
-        newEntity.setValue(latitude, forKey: "note_latitude_loc")
-        newEntity.setValue(longitude, forKey: "note_longitude_loc")
-        newEntity.setValue(categoryName, forKey: "category_name")
-        do {
-          try managedContext.save()
-            print("notes saved successfully")
-        } catch let error as NSError {
-          print("Could not notes. \(error), \(error.userInfo)")
-        }
-    }
-    
     func fetchNotesForCategory(_ categoryName:String) -> [Notes] {
         var notesArrObj = [Notes]()
         var categories = [Category]()
@@ -44,7 +25,6 @@ class DataModel {
           if let category = categories.first {
             notesArrObj = (category.notes?.allObjects) as! [Notes]
           }
-            print("array object count is \(notesArrObj.count)")
           return notesArrObj
         } catch let error as NSError {
           print("Could not fetch. \(error), \(error.userInfo)")
@@ -113,7 +93,6 @@ class DataModel {
             let results = try managedContext.fetch(fetchRequest)
             for object in results {
                 guard let objectData = object as? Category else {continue}
-                print("object data is \(objectData.category_name!)")
                 if (objectData.category_name!.elementsEqual(categoryName)) {
                     managedContext.delete(objectData)
                     try managedContext.save()
@@ -142,6 +121,32 @@ class DataModel {
         }
     }
     
+    func updateNote(_ categoryName:String,_ notesObj:Notes) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Notes>(entityName: "Notes")
+        fetchRequest.predicate = NSPredicate(format: "category_name = '\(categoryName)' AND note_title = '\(String(describing: notesObj.note_title))' AND note_created_timestamp = '\(String(describing: notesObj.note_created_timestamp))'")
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            if let category = results.first {
+                category.note_title = notesObj.note_title
+                category.note_description = notesObj.note_description
+                category.note_latitude_loc = notesObj.note_latitude_loc
+                category.note_longitude_loc = notesObj.note_longitude_loc
+                category.category_name = notesObj.category_name
+                category.note_created_timestamp = notesObj.note_created_timestamp
+                category.note_images = notesObj.note_images
+                category.note_audios = notesObj.note_audios
+            }
+            
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not delete. \(error), \(error.userInfo)")
+        }
+    }
+    
     func updateCategory(_ categoryName:String,_ updatedCategoryName:String,_ categoryIcon:Data?) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
@@ -163,7 +168,7 @@ class DataModel {
         }
     }
     
-    func untitledCategoryWithNote(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,note_created_timestamp:Date,_ images:[Data]) {
+    func untitledCategoryWithNote(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,note_created_timestamp:String,_ images:[Data]?) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
@@ -174,16 +179,19 @@ class DataModel {
         category.setValue(defaultCatgryIcon, forKey: "category_icon")
         
         let notes_entity = NSEntityDescription.insertNewObject(forEntityName: "Notes", into: managedContext) as! Notes
-        let notes_imagesEntity = NSEntityDescription.insertNewObject(forEntityName: "Notes_images", into: managedContext) as! Notes_images
         notes_entity.setValue(title, forKey: "note_title")
         notes_entity.setValue(description, forKey: "note_description")
         notes_entity.setValue(latitude, forKey: "note_latitude_loc")
         notes_entity.setValue(longitude, forKey: "note_longitude_loc")
         notes_entity.setValue(categoryName, forKey: "category_name")
         notes_entity.setValue(note_created_timestamp, forKey: "note_created_timestamp")
-        
-        for image in images {
-            notes_imagesEntity.setValue(image, forKey: "image_content")
+        do {
+            if let img = images {
+                let imgData = try NSKeyedArchiver.archivedData(withRootObject: img, requiringSecureCoding: false)
+                notes_entity.setValue(imgData, forKey: "note_images")
+            }
+        } catch let error as NSError {
+            print("Error while adding Note. \(error), \(error.userInfo)")
         }
         
         category.addToNotes(notes_entity)
@@ -191,11 +199,11 @@ class DataModel {
             try managedContext.save()
             print("category saved successfully")
         } catch let error as NSError {
-            print("Error while adding category. \(error), \(error.userInfo)")
+            print("Error while adding Note. \(error), \(error.userInfo)")
         }
     }
     
-    func AddNotesForCategory(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,note_created_timestamp:Date,_ images:[Data]) {
+    func AddNotesForCategory(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,note_created_timestamp:String,_ images:[Data]?) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
@@ -206,18 +214,20 @@ class DataModel {
           let results = try managedContext.fetch(fetchRequest)
             if let category = results.first {
                 let notes_entity = NSEntityDescription.insertNewObject(forEntityName: "Notes", into: managedContext) as! Notes
-                let notes_imagesEntity = NSEntityDescription.insertNewObject(forEntityName: "Notes_images", into: managedContext) as! Notes_images
                 notes_entity.setValue(title, forKey: "note_title")
                 notes_entity.setValue(description, forKey: "note_description")
                 notes_entity.setValue(latitude, forKey: "note_latitude_loc")
                 notes_entity.setValue(longitude, forKey: "note_longitude_loc")
                 notes_entity.setValue(categoryName, forKey: "category_name")
                 notes_entity.setValue(note_created_timestamp, forKey: "note_created_timestamp")
-                
-                for image in images {
-                    notes_imagesEntity.setValue(image, forKey: "image_content")
+                do {
+                    if let img = images {
+                        let imgData = try NSKeyedArchiver.archivedData(withRootObject: img, requiringSecureCoding: false)
+                        notes_entity.setValue(imgData, forKey: "note_images")
+                    }
+                } catch let error as NSError {
+                    print("Error while adding Note. \(error), \(error.userInfo)")
                 }
-                notes_entity.addToImages(notes_imagesEntity)
                 category.addToNotes(notes_entity)
             } else {
                 untitledCategoryWithNote(categoryName, title, description, latitude, longitude, note_created_timestamp: note_created_timestamp, images)
@@ -226,5 +236,15 @@ class DataModel {
         } catch let error as NSError {
             print(error.localizedDescription)
         }
+    }
+    
+    func moveNoteToCategory(_ oldCategoryName:String,_ noteObj:Notes,_ newCategoryName:String) {
+        DataModel().deleteNote(oldCategoryName, noteObj)
+        var imgData:[Data]?
+        if let noteImages = noteObj.note_images {
+            imgData = NSKeyedUnarchiver.unarchiveObject(with: noteImages) as! [Data]
+        }
+        DataModel().AddNotesForCategory(newCategoryName, noteObj.note_title!, noteObj.note_description!, noteObj.note_latitude_loc!, noteObj.note_longitude_loc!, note_created_timestamp: noteObj.note_created_timestamp!, imgData != nil ? imgData : nil)
+        
     }
 }

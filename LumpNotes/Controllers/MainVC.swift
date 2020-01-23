@@ -17,7 +17,7 @@ extension UIColor {
     }
 }
 
-class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate,CategoryViewCellDelegate {
+class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate,CategoryViewCellDelegate, AddEditNoteDelegate {
     
     @IBOutlet weak var searchNotFoundVC: UIView!
     @IBOutlet weak var sortBtn: UIButton!
@@ -140,10 +140,12 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addNotesSbSegue" {
-            let _ = segue.destination as! AddEditNoteVC
+            let dest = segue.destination as! AddEditNoteVC
+            dest.delegate = self
         } else if segue.identifier == "AllNotesSB" {
             let destination = segue.destination as! AllNotesVC
             destination.categoryName = selectedCategoryName
+            destination.categories = filteredCategories
         }
     }
     
@@ -239,23 +241,7 @@ extension MainVC {
     }
     
     func selectedCategory(cell: CategoryViewCell) {
-        //guard let index = collecView.indexPath(for: cell)?.row else { return }
-        //appearBlackViewFrame()
         showAlertActions(cell)
-    }
-    
-    func appearBlackViewFrame() {
-        if let window = UIApplication.shared.windows.first {
-            blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-            window.addSubview(blackView)
-            
-            blackView.frame = window.frame
-            blackView.alpha = 0
-            
-            UIView.animate(withDuration: 0.5) {
-                self.blackView.alpha = 1
-            }
-        }
     }
     
     func setupNavigationBar() {
@@ -319,6 +305,11 @@ extension MainVC {
             
             
         }
+    }
+    func reloadTableAtLastIndex() {
+        items = utils.fetchCategoriesCoreData()
+        filteredCategories = utils.transferDataDictToArr(items)
+        collecView.reloadData()
     }
     
     func applyPresetConstraints() {

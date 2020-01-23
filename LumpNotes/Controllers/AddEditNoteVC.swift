@@ -17,11 +17,11 @@ extension UITextView {
         let toolBar = UIToolbar(frame: CGRect(x: 0.0,
                                               y: 0.0,
                                               width: UIScreen.main.bounds.size.width,
-                                              height: 44.0))//1
-        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)//2
-        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)//3
-        toolBar.setItems([flexible, barButton], animated: false)//4
-        self.inputAccessoryView = toolBar//5
+                                              height: 44.0))//
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)
+        toolBar.setItems([flexible, barButton], animated: false)
+        self.inputAccessoryView = toolBar
     }
 }
 
@@ -31,9 +31,9 @@ extension UITextField {
       self.layer.backgroundColor = UIColor.white.cgColor
 
       self.layer.masksToBounds = false
-      self.layer.shadowColor = UIColor.gray.cgColor
+      self.layer.shadowColor = UIColor.black.cgColor
       self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-      self.layer.shadowOpacity = 1.0
+        self.layer.shadowOpacity = 0.2
       self.layer.shadowRadius = 0.0
     }
 }
@@ -58,6 +58,7 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var imgCollecView: UICollectionView!
     @IBOutlet weak var audioTableView: UITableView!
     let locManager = CLLocationManager()
+    var currentLocation = CLLocation()
     @IBOutlet weak var imgStackView: UIStackView!
     override func viewDidLoad() {
         topView.layer.cornerRadius = 20
@@ -65,7 +66,9 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         super.viewDidLoad()
         self.notesTxt.addDoneButton(title: "Done", target: self, selector: #selector(tapDone(sender:)))
         imgLocationOnMap.delegate = self
-        imgLocationOnMap.showsUserLocation = true
+        if !isEditNote {
+            imgLocationOnMap.showsUserLocation = true
+        }
         notesTitle.delegate = self
         locManager.delegate = self
         locManager.requestWhenInUseAuthorization()
@@ -74,6 +77,7 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         layout?.estimatedItemSize = CGSize(width: 144, height: 153)
         if isEditNote {
             populateValuesForEditing()
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Update", style: UIBarButtonItem.Style.plain, target: self, action: #selector(onSaveAction(_:)))
         }
     }
     
@@ -106,9 +110,17 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         } else if (status == CLAuthorizationStatus.authorizedAlways || status == CLAuthorizationStatus.authorizedWhenInUse) {
             if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() == .authorizedAlways) {
-                let currentLocation:CLLocation = locManager.location!
+                if isEditNote {
+                    let latitude = Double(notesObj!.note_latitude_loc!)
+                    let longitude = Double(notesObj!.note_longitude_loc!)
+                    currentLocation = CLLocation(latitude: latitude!, longitude: longitude!)
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = currentLocation.coordinate
+                    imgLocationOnMap.addAnnotation(annotation)
+                } else {
+                    currentLocation = locManager.location!
+                }
                 centerMapOnLocation(currentLocation)
-                
                 let geo = CLGeocoder()
                 var addressString : String = ""
                 geo.reverseGeocodeLocation(currentLocation) { placemarks, error in
@@ -138,11 +150,10 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
     
     //Location code
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard annotation is MKUserLocation else { return nil }
         
         let identifier = "annotationView"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-
+        
         if annotationView == nil {
             annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView!.image = UIImage(named: "pin")
@@ -205,23 +216,40 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(imgViewArr.count)
         return imgViewArr.count
     }
     
     @IBAction func onSaveAction(_ sender: Any) {
-        if let _ = categoryName {
-            
-        } else {
+        if categoryName == nil {
             categoryName = "Untitled"
         }
-        var imgData = [Data]()
-        for imgView in imgViewArr {
-            imgData.append((imgView.image?.pngData())!)
-        }
         
-        if !notesTitle.text!.isEmpty{
-            DataModel().AddNotesForCategory(self.categoryName!, self.notesTitle.text!, self.notesTxt.text!, String(self.locManager.location!.coordinate.latitude), String(self.locManager.location!.coordinate.longitude), note_created_timestamp: Date(), imgData)
+        if !notesTitle.text!.isEmpty {
+            var imgData : [Data]?
+            if imgViewArr.count > 0 {
+                imgData = [Data]()
+            }
+            for imgView in imgViewArr {
+                imgData!.append((imgView.image?.pngData())!)
+            }
+            if !isEditNote {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let currDate = formatter.string(from: Date())
+            DataModel().AddNotesForCategory(self.categoryName!, self.notesTitle.text!, self.notesTxt.text!, String(self.locManager.location!.coordinate.latitude), String(self.locManager.location!.coordinate.longitude), note_created_timestamp: currDate, imgData)
+            } else {
+                notesObj?.note_title = notesTitle.text!
+                notesObj?.note_description = notesTxt.text!
+                do {
+                    if let imgs = imgData {
+                        let imgData = try NSKeyedArchiver.archivedData(withRootObject: imgs, requiringSecureCoding: false)
+                        notesObj?.note_images = imgData
+                    }
+                    DataModel().updateNote(self.categoryName!, notesObj!)
+                } catch let error as NSError {
+                    print("Could not archive image to data and update note. \(error), \(error.userInfo)")
+                }
+            }
             
             delegate?.reloadTableAtLastIndex()
             self.navigationController?.popViewController(animated: true)
@@ -242,7 +270,6 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         } else if !imgViewArr.isEmpty && imgStackView.isHidden {
             imgStackView.isHidden = false
         }
-        print("the index path is \(indexPath.row)")
         return cell
     }
 }
@@ -264,13 +291,15 @@ extension AddEditNoteVC: ImageCellDelegate {
         if let notes = notesObj {
             notesTitle.text = notesObj?.note_title
             notesTxt.text = notesObj?.note_description
-            let imgArr = notes.images?.allObjects as! [Notes_images]
-            for images in imgArr {
-                if let content = images.image_content {
-                    imgViewArr.append(UIImageView(image: UIImage(data: content)))
+            if let noteImages = notes.note_images {
+                let imgData = NSKeyedUnarchiver.unarchiveObject(with: noteImages)
+                for images in imgData as! [Data]{
+                    imgViewArr.append(UIImageView(image: UIImage(data: images)))
                 }
             }
-            imgCollecView.reloadData()
+            if !imgViewArr.isEmpty {
+                imgStackView.isHidden = false
+            }
         }
     }
 }
