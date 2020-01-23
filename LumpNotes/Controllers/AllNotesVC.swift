@@ -99,6 +99,7 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
           handler: { (action, view, completionHandler) in
           DataModel().deleteNote(self.categoryName!, self.notes[indexPath.row])
           self.notes.remove(at: indexPath.row)
+          self.filteredNotes.remove(at: indexPath.row)
           self.notesTableView.deleteRows(at: [indexPath], with: .fade)
           completionHandler(true)
         })
@@ -121,6 +122,7 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
                             let moveNote = UIAlertAction(title: category, style: .default) { (action) in
                                 DataModel().moveNoteToCategory(self.categoryName!, self.notes[indexPath.row], category)
                                 self.notes.remove(at: indexPath.row)
+                                self.filteredNotes.remove(at: indexPath.row)
                                 self.notesTableView.deleteRows(at: [indexPath], with: .fade)
                             }
                             alertController.addAction(moveNote)
