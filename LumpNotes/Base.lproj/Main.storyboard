@@ -396,7 +396,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kwu-Sk-W0Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1823" y="-547"/>
+            <point key="canvasLocation" x="1897" y="-587"/>
         </scene>
         <!--All NotesVC-->
         <scene sceneID="3Oa-UU-l12">
@@ -445,8 +445,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <action selector="onSearchCategory" destination="BYZ-38-t0r" eventType="touchUpInside" id="mTC-P3-Eji"/>
-                                            <outlet property="delegate" destination="BYZ-38-t0r" id="UPP-Wm-Z5E"/>
+                                            <outlet property="delegate" destination="CZs-SL-wKK" id="7LX-Zc-pay"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PcS-Ms-fW6">
@@ -578,6 +577,12 @@
                                     <action selector="onCreateNewNote:" destination="CZs-SL-wKK" eventType="touchUpInside" id="Ubi-E7-J5n"/>
                                 </connections>
                             </button>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPc-lq-UQ6">
+                                <rect key="frame" x="0.0" y="213" width="375" height="565"/>
+                                <connections>
+                                    <segue destination="joH-f7-OP3" kind="embed" identifier="" id="nf1-iy-9n7"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -585,13 +590,17 @@
                             <constraint firstItem="T59-c9-NB0" firstAttribute="top" secondItem="ykT-yD-ODd" secondAttribute="bottom" constant="18" id="55o-ro-3US"/>
                             <constraint firstItem="RWk-IR-gsT" firstAttribute="trailing" secondItem="91W-1f-abX" secondAttribute="trailing" id="E9q-dr-rwm"/>
                             <constraint firstItem="RWk-IR-gsT" firstAttribute="bottom" secondItem="91W-1f-abX" secondAttribute="bottom" id="FHc-BN-6pg"/>
+                            <constraint firstItem="CPc-lq-UQ6" firstAttribute="leading" secondItem="91W-1f-abX" secondAttribute="leading" id="HT4-Jb-AJQ"/>
                             <constraint firstItem="3lD-qP-kBH" firstAttribute="top" secondItem="5fV-fi-EhB" secondAttribute="top" constant="33" id="KKl-ze-Q2T"/>
+                            <constraint firstItem="CPc-lq-UQ6" firstAttribute="top" secondItem="ykT-yD-ODd" secondAttribute="bottom" constant="47" id="R7E-Jv-AOd"/>
                             <constraint firstItem="RWk-IR-gsT" firstAttribute="top" secondItem="5fV-fi-EhB" secondAttribute="bottom" constant="8" id="RMV-hL-7Nb"/>
                             <constraint firstItem="RWk-IR-gsT" firstAttribute="leading" secondItem="91W-1f-abX" secondAttribute="leading" id="VOO-1I-L0P"/>
                             <constraint firstItem="3lD-qP-kBH" firstAttribute="trailing" secondItem="91W-1f-abX" secondAttribute="trailing" id="bas-V0-wKr"/>
                             <constraint firstItem="91W-1f-abX" firstAttribute="trailing" secondItem="Wzs-Dq-483" secondAttribute="trailing" constant="20" id="flb-rt-qmz"/>
+                            <constraint firstItem="CPc-lq-UQ6" firstAttribute="bottom" secondItem="91W-1f-abX" secondAttribute="bottom" id="iZq-6A-ogR"/>
                             <constraint firstItem="ykT-yD-ODd" firstAttribute="top" secondItem="Adb-TX-UMl" secondAttribute="top" id="jIW-SP-6qr"/>
                             <constraint firstItem="5fV-fi-EhB" firstAttribute="leading" secondItem="91W-1f-abX" secondAttribute="leading" constant="16" id="n25-Ct-2ND"/>
+                            <constraint firstItem="CPc-lq-UQ6" firstAttribute="trailing" secondItem="91W-1f-abX" secondAttribute="trailing" id="ngz-nl-ukA"/>
                             <constraint firstItem="5fV-fi-EhB" firstAttribute="top" secondItem="ykT-yD-ODd" secondAttribute="bottom" constant="14" id="qdw-6H-2mN"/>
                             <constraint firstItem="Wzs-Dq-483" firstAttribute="bottom" secondItem="91W-1f-abX" secondAttribute="bottom" constant="-10" id="qgh-jG-UNV"/>
                             <constraint firstItem="ykT-yD-ODd" firstAttribute="leading" secondItem="91W-1f-abX" secondAttribute="leading" id="sJ1-fD-BZj"/>
@@ -603,9 +612,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="dIs-YG-06h"/>
                     <connections>
+                        <outlet property="NotesNotFoundVC" destination="CPc-lq-UQ6" id="Khf-yg-pPu"/>
                         <outlet property="addNotesBtn" destination="Wzs-Dq-483" id="5rH-Sh-m3L"/>
                         <outlet property="emptyContainerView" destination="3lD-qP-kBH" id="A0C-Ma-tvx"/>
                         <outlet property="notesTableView" destination="RWk-IR-gsT" id="Ctx-Qv-r63"/>
+                        <outlet property="searchBar" destination="dFG-pg-9F2" id="RcW-D1-t4t"/>
                         <outlet property="topView" destination="ykT-yD-ODd" id="a2u-i6-Ggm"/>
                         <segue destination="9VY-43-zsj" kind="show" identifier="addNewNote" id="bRh-KF-NeJ"/>
                         <segue destination="9VY-43-zsj" kind="show" identifier="ShowNotes" id="6Gd-Nm-AdY"/>
@@ -723,7 +734,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dat-WU-drZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1045" y="715"/>
+            <point key="canvasLocation" x="434" y="721"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="iV0-NG-zs5">
@@ -768,7 +779,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVC-wS-I0b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1896" y="668"/>
+            <point key="canvasLocation" x="2041" y="831"/>
         </scene>
         <!--Add Edit NoteVC-->
         <scene sceneID="59T-ms-xAE">
@@ -1041,6 +1052,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ryt-TY-8k9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2661.5999999999999" y="242.36453201970446"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="13c-dp-Sdc">
+            <objects>
+                <viewController id="joH-f7-OP3" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="meE-fH-LMc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="612"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klA-pg-Gid">
+                                <rect key="frame" x="138.66666666666666" y="188" width="98" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="98" id="zDF-u2-9TJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_category_icon" translatesAutoresizingMaskIntoConstraints="NO" id="dFU-zd-2Yt">
+                                <rect key="frame" x="129" y="306" width="117" height="117"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="117" id="FZZ-y0-NPd"/>
+                                    <constraint firstAttribute="width" constant="117" id="jDa-la-1ED"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No matching Notes found!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRD-FH-Xvo">
+                                <rect key="frame" x="61" y="232" width="253" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="253" id="IIA-Tt-vni"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="dFU-zd-2Yt" firstAttribute="top" secondItem="QRD-FH-Xvo" secondAttribute="bottom" constant="53" id="7D9-vd-glY"/>
+                            <constraint firstItem="dFU-zd-2Yt" firstAttribute="centerX" secondItem="meE-fH-LMc" secondAttribute="centerX" id="DKa-4b-KBy"/>
+                            <constraint firstItem="klA-pg-Gid" firstAttribute="top" secondItem="meE-fH-LMc" secondAttribute="topMargin" constant="144" id="EUk-Zx-B8i"/>
+                            <constraint firstItem="klA-pg-Gid" firstAttribute="centerX" secondItem="meE-fH-LMc" secondAttribute="centerX" id="MKi-hO-ZKW"/>
+                            <constraint firstItem="QRD-FH-Xvo" firstAttribute="centerX" secondItem="meE-fH-LMc" secondAttribute="centerX" id="ePC-Za-7Dh"/>
+                            <constraint firstItem="QRD-FH-Xvo" firstAttribute="top" secondItem="klA-pg-Gid" secondAttribute="bottom" constant="23" id="nqq-FN-1I2"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ril-7x-mse" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1365.5999999999999" y="848.27586206896558"/>
         </scene>
     </scenes>
     <resources>

@@ -8,22 +8,26 @@
 
 import UIKit
 
-class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,AddEditNoteDelegate {
+class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,AddEditNoteDelegate,UITextFieldDelegate {
     
+    @IBOutlet weak var searchBar: UITextField!
     @IBOutlet weak var emptyContainerView: UIView!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var addNotesBtn: UIButton!
     @IBOutlet weak var notesTableView: UITableView!
+    @IBOutlet weak var NotesNotFoundVC: UIView!
     
     var categories:[String]?
     var categoryName:String?
     var selectedNoteForUpdate:Notes?
     let utils = Utilities()
     var notes = [Notes]()
+    var filteredNotes = [Notes]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         notes = DataModel().fetchNotesForCategory(categoryName!)
+        filteredNotes = notes
         applyPresetConstraints()
     }
     
@@ -35,12 +39,34 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if notes.count < 1 {
-            emptyContainerView.isHidden = false
+        if notes.count > 0 {
+            if filteredNotes.count < 1 {
+                emptyContainerView.isHidden = false
+            } else {
+                emptyContainerView.isHidden = true
+                NotesNotFoundVC.isHidden = true
+            }
         } else {
-            emptyContainerView.isHidden = true
+            NotesNotFoundVC.isHidden = true
+            emptyContainerView.isHidden = false
         }
-        return notes.count
+        
+        /*if items.count > 0 {
+            if filteredCategories.count < 1 {
+                emptyVC.isHidden = false
+                sortBtn.isHidden = true
+            } else {
+                emptyVC.isHidden = true
+                searchNotFoundVC.isHidden = true
+                sortBtn.isHidden = false
+            }
+        } else {
+            searchNotFoundVC.isHidden = true
+            emptyVC.isHidden = false
+            sortBtn.isHidden = true
+        }*/
+        
+        return filteredNotes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,7 +75,7 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        if let note_created_timestamp = notes[indexPath.row].note_created_timestamp {
+        if let note_created_timestamp = filteredNotes[indexPath.row].note_created_timestamp {
             let myDate = formatter.date(from: note_created_timestamp)
             formatter.dateFormat = "dd-MMM-yyyy"
             let date = formatter.string(from: myDate!)
@@ -60,7 +86,7 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
             let timeString = formatter.string(from: myDate!)
             cell.timeStampLblTxt.text = timeString
         }
-        cell.noteTxt.text = notes[indexPath.row].note_title!
+        cell.noteTxt.text = filteredNotes[indexPath.row].note_title!
         return cell
     }
     
@@ -117,12 +143,41 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedNoteForUpdate = notes[indexPath.row]
+        selectedNoteForUpdate = filteredNotes[indexPath.row]
         performSegue(withIdentifier: "ShowNotes", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
+    }
+    
+    // MARK: - Text field Delegate functions
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        var isFound = false
+        if searchBar.text != nil && !searchBar.text!.isEmpty {
+            filteredNotes = []
+            for notesObj in notes {
+                if notesObj.note_title!.lowercased().contains(searchBar!.text!.lowercased()) {
+                    filteredNotes.append(notesObj)
+                    isFound = true
+                }
+            }
+            if isFound {
+                notesTableView.reloadData()
+            } else {
+                NotesNotFoundVC.isHidden = false
+            }
+            
+        } else {
+            filteredNotes = notes
+            notesTableView.reloadData()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      textField.resignFirstResponder()
+      return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -145,6 +200,7 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
     
     func reloadTableAtLastIndex() {
         notes = DataModel().fetchNotesForCategory(categoryName!)
+        filteredNotes = notes
         notesTableView.reloadData()
     }
 }
