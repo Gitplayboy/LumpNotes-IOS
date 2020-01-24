@@ -168,7 +168,7 @@ class DataModel {
         }
     }
     
-    func untitledCategoryWithNote(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,note_created_timestamp:String,_ images:[Data]?) {
+    func untitledCategoryWithNote(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,_ note_created_timestamp:String,_ images:[Data]?) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
@@ -203,7 +203,7 @@ class DataModel {
         }
     }
     
-    func AddNotesForCategory(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,note_created_timestamp:String,_ images:[Data]?) {
+    func addNotesForCategory(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,_ note_created_timestamp:String,_ images:[Data]?) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
@@ -230,7 +230,7 @@ class DataModel {
                 }
                 category.addToNotes(notes_entity)
             } else {
-                untitledCategoryWithNote(categoryName, title, description, latitude, longitude, note_created_timestamp: note_created_timestamp, images)
+                untitledCategoryWithNote(categoryName, title, description, latitude, longitude,  note_created_timestamp, images)
             }
           try managedContext.save()
         } catch let error as NSError {
@@ -239,12 +239,11 @@ class DataModel {
     }
     
     func moveNoteToCategory(_ oldCategoryName:String,_ noteObj:Notes,_ newCategoryName:String) {
-        DataModel().deleteNote(oldCategoryName, noteObj)
+        deleteNote(oldCategoryName, noteObj)
         var imgData:[Data]?
         if let noteImages = noteObj.note_images {
-            imgData = NSKeyedUnarchiver.unarchiveObject(with: noteImages) as! [Data]
+            imgData = NSKeyedUnarchiver.unarchiveObject(with: noteImages) as? [Data]
         }
-        DataModel().AddNotesForCategory(newCategoryName, noteObj.note_title!, noteObj.note_description!, noteObj.note_latitude_loc!, noteObj.note_longitude_loc!, note_created_timestamp: noteObj.note_created_timestamp!, imgData != nil ? imgData : nil)
-        
+        addNotesForCategory(newCategoryName, noteObj.note_title!, noteObj.note_description!, noteObj.note_latitude_loc!, noteObj.note_longitude_loc!,  noteObj.note_created_timestamp!, imgData != nil ? imgData : nil)
     }
 }

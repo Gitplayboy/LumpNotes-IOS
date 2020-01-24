@@ -236,7 +236,7 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 let currDate = formatter.string(from: Date())
-            DataModel().AddNotesForCategory(self.categoryName!, self.notesTitle.text!, self.notesTxt.text!, String(self.locManager.location!.coordinate.latitude), String(self.locManager.location!.coordinate.longitude), note_created_timestamp: currDate, imgData)
+            DataModel().addNotesForCategory(self.categoryName!, self.notesTitle.text!, self.notesTxt.text!, String(self.locManager.location!.coordinate.latitude), String(self.locManager.location!.coordinate.longitude), currDate, imgData)
             } else {
                 notesObj?.note_title = notesTitle.text!
                 notesObj?.note_description = notesTxt.text!

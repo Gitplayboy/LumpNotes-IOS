@@ -39,7 +39,6 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //DataModel().deleteAllData()
         items = utils.fetchCategoriesCoreData()
         filteredCategories = utils.transferDataDictToArr(items)
         applyPresetConstraints()
@@ -314,7 +313,6 @@ extension MainVC {
     
     func applyPresetConstraints() {
         utils.applyDropShadowSearchBar(searchBar)
-        //utils.applyDropShadowTopBar(topView)
         topView.layer.cornerRadius = 20
         let layout = collecView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.estimatedItemSize = CGSize(width: 160, height: 160)

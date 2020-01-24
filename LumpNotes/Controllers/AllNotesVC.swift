@@ -16,8 +16,10 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
     @IBOutlet weak var addNotesBtn: UIButton!
     @IBOutlet weak var notesTableView: UITableView!
     @IBOutlet weak var NotesNotFoundVC: UIView!
+    @IBOutlet weak var sortBtn: UIButton!
     
     var categories:[String]?
+    var isAscendingSort = false
     var categoryName:String?
     var selectedNoteForUpdate:Notes?
     let utils = Utilities()
@@ -50,22 +52,6 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
             NotesNotFoundVC.isHidden = true
             emptyContainerView.isHidden = false
         }
-        
-        /*if items.count > 0 {
-            if filteredCategories.count < 1 {
-                emptyVC.isHidden = false
-                sortBtn.isHidden = true
-            } else {
-                emptyVC.isHidden = true
-                searchNotFoundVC.isHidden = true
-                sortBtn.isHidden = false
-            }
-        } else {
-            searchNotFoundVC.isHidden = true
-            emptyVC.isHidden = false
-            sortBtn.isHidden = true
-        }*/
-        
         return filteredNotes.count
     }
     
@@ -194,6 +180,19 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
             segueDest.categoryName = categoryName
             segueDest.delegate = self
         }
+    }
+    
+    @IBAction func onSortBtnClick(_ sender: UIButton) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if isAscendingSort {
+            filteredNotes.sort(){dateFormatter.date(from:$0.note_created_timestamp!)! >  dateFormatter.date(from:$1.note_created_timestamp!)!}
+            isAscendingSort = false
+        } else {
+            filteredNotes.sort(){dateFormatter.date(from:$0.note_created_timestamp!)! <  dateFormatter.date(from:$1.note_created_timestamp!)!}
+            isAscendingSort = true
+        }
+        notesTableView.reloadData()
     }
     
     @IBAction func onCreateNewNote(_ sender: UIButton) {

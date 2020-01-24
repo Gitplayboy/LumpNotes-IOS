@@ -551,22 +551,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3AAAC8C5-5A3B-4636-93AB-906D5DB606F4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LumpNotes/Controllers/MainVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "513B7AF3-DC04-4698-95EB-C741C9AEECEC"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -576,8 +560,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "98"
             endingLineNumber = "98"
-            landmarkName = "MainVC"
-            landmarkType = "3">
+            landmarkName = "collectionView(_:didUnhighlightItemAt:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "513B7AF3-DC04-4698-95EB-C741C9AEECEC - 77bc34bcbd9ef6f8"
@@ -672,8 +656,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "188"
             endingLineNumber = "188"
-            landmarkName = "onAddEditCategoryClick()"
-            landmarkType = "7">
+            landmarkName = "MainVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1038,10 +1022,10 @@
             filePath = "LumpNotes/Controllers/AllNotesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "onCreateNewNote(_:)"
-            landmarkType = "7">
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "AllNotesVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1102,9 +1086,9 @@
             filePath = "LumpNotes/Controllers/AllNotesVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "onCreateNewNote(_:)"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "reloadTableAtLastIndex()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1136,7 +1120,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
             endingLineNumber = "41"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkName = "applyPresetConstraints()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1200,7 +1184,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "208"
             endingLineNumber = "208"
-            landmarkName = "AddNotesForCategory(_:_:_:_:_:note_created_timestamp:_:)"
+            landmarkName = "addNotesForCategory(_:_:_:_:_:_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1312,8 +1296,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
             endingLineNumber = "96"
-            landmarkName = "AllNotesVC"
-            landmarkType = "3">
+            landmarkName = "tableView(_:trailingSwipeActionsConfigurationForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1393,6 +1377,22 @@
             startingLineNumber = "159"
             endingLineNumber = "159"
             landmarkName = "textFieldDidChangeSelection(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3FF50586-FAA0-48AC-94FB-A4461345D2CE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LumpNotes/CoreData/DataModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "deleteNote(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
