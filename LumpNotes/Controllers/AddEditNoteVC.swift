@@ -60,6 +60,12 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
     let locManager = CLLocationManager()
     var currentLocation = CLLocation()
     @IBOutlet weak var imgStackView: UIStackView!
+    @IBOutlet weak var audioStackView: UIStackView!
+    //Audio
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
+    var audioPlayer: AVAudioPlayer!
+    
     override func viewDidLoad() {
         topView.layer.cornerRadius = 20
         notesTxt.delegate = self
@@ -78,6 +84,15 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         if isEditNote {
             populateValuesForEditing()
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Update", style: UIBarButtonItem.Style.plain, target: self, action: #selector(onSaveAction(_:)))
+        }
+        //setting session
+        recordingSession = AVAudioSession.sharedInstance()
+        
+        //ask for permission
+        AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
+            if hasPermission {
+                print("Permission Accepted")
+            }
         }
     }
     
@@ -272,9 +287,12 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         }
         return cell
     }
+    @IBAction func onAudioRecordClick(_ sender: Any) {
+        
+    }
 }
 
-extension AddEditNoteVC: ImageCellDelegate {
+extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewDataSource ,AVAudioRecorderDelegate{
     func deleteImage(cell: ImageCell) {
         let index = self.imgCollecView.indexPath(for: cell)
         self.imgCollecView.deleteItems(at: [index!])
@@ -302,4 +320,14 @@ extension AddEditNoteVC: ImageCellDelegate {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "audioCell") as! AudioCell
+        cell.audioUrl = Bundle.main.url(forResource: "audio", withExtension: "mp3")
+        return cell
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+        
 }

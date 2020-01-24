@@ -10,6 +10,7 @@
 		45485D4C23CEE91D00DF9BE9 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45485D4B23CEE91C00DF9BE9 /* SFProDisplay-Bold.ttf */; };
 		45485D5323CEF5EE00DF9BE9 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72CA23CC003E00A2001E /* MainVC.swift */; };
 		4548858623CCD11E0072BB82 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4548858523CCD11E0072BB82 /* DataModel.swift */; };
+		454A803C23DB3C9400A7FD18 /* audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 454A803B23DB3C9400A7FD18 /* audio.mp3 */; };
 		454F72C723CC003E00A2001E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72C623CC003E00A2001E /* AppDelegate.swift */; };
 		454F72C923CC003E00A2001E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72C823CC003E00A2001E /* SceneDelegate.swift */; };
 		454F72D123CC003E00A2001E /* LumpNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 454F72CF23CC003E00A2001E /* LumpNotes.xcdatamodeld */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		45485D4B23CEE91C00DF9BE9 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		4548858523CCD11E0072BB82 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		454A803B23DB3C9400A7FD18 /* audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio.mp3; sourceTree = "<group>"; };
 		454F72C323CC003E00A2001E /* LumpNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LumpNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		454F72C623CC003E00A2001E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		454F72C823CC003E00A2001E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				454F72D423CC004400A2001E /* LaunchScreen.storyboard */,
 				454F72D223CC004400A2001E /* Assets.xcassets */,
 				454F72D723CC004400A2001E /* Info.plist */,
+				454A803B23DB3C9400A7FD18 /* audio.mp3 */,
 				454F72CF23CC003E00A2001E /* LumpNotes.xcdatamodeld */,
 			);
 			path = LumpNotes;
@@ -214,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				454F72F623CC075B00A2001E /* segoe_ui.ttf in Resources */,
+				454A803C23DB3C9400A7FD18 /* audio.mp3 in Resources */,
 				454F72F523CC075B00A2001E /* impact_regular.ttf in Resources */,
 				45485D4C23CEE91D00DF9BE9 /* SFProDisplay-Bold.ttf in Resources */,
 				454F72EA23CC064C00A2001E /* Main.storyboard in Resources */,
