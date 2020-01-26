@@ -21,7 +21,6 @@ class AudioCell: UITableViewCell,AVAudioPlayerDelegate {
     var audioUrl:URL?
     var timer:Timer?
     @IBOutlet weak var audioProgress: UIProgressView!
-    @IBOutlet weak var audioTime: UILabel!
     @IBOutlet weak var audioTimeLbl: UILabel!
     @IBOutlet weak var playBtn: UIButton!
     

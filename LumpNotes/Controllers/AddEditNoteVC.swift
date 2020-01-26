@@ -68,6 +68,9 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
     var audioArr = [String]()
     var audioName:String?
     var audioTimer:Timer?
+    var recordingImgTimer:Timer?
+    var audioOverallTime = 0.00
+    var recordingVcObj:RecordingVC?
     
     override func viewDidLoad() {
         topView.layer.cornerRadius = 20
@@ -304,7 +307,6 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         cell.delegate = self
         cell.imgView.image = imgViewArr[indexPath.row].image
-        //cell.imgView.contentMode = .scaleAspectFit
         cell.imgView.clipsToBounds = true
         if imgViewArr.isEmpty && !imgStackView.isHidden {
             imgStackView.isHidden = true
@@ -363,6 +365,9 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCell(withIdentifier: "audioCell") as! AudioCell
         cell.audioUrl = getDocumentsDirectory().appendingPathComponent("\(audioArr[indexPath.row])")
         cell.delegate = self
+        cell.audioTimeLbl.text = "\(audioOverallTime)"
+        cell.audioTimeLbl.text = cell.audioTimeLbl.text?.replacingOccurrences(of: ".", with: ":")
+        
         if audioArr.isEmpty && !audioStackView.isHidden {
             audioStackView.isHidden = true
         } else if !audioArr.isEmpty && audioStackView.isHidden {
@@ -380,6 +385,7 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "recordingSB" {
             let dest = segue.destination as! RecordingVC
+            recordingVcObj = dest
             dest.parentController = self
             dest.audioRecorder = self.audioRecorder
         }
@@ -387,6 +393,7 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
     
     func startRecording() {
         audioTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerLbl), userInfo: nil, repeats: true)
+        recordingImgTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateRecordIconImg), userInfo: nil, repeats: true)
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MMM-yyyy"
         let date = formatter.string(from: Date())
@@ -403,12 +410,27 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
             audioRecorder.delegate = self
             audioRecorder.record()
         } catch {
+            audioOverallTime = 0.00
+            if let timer = audioTimer {
+                timer.invalidate()
+            }
+            recordingVcObj?.recorderTimerLbl.text = "0:00"
             audioRecorder.stop()
         }
     }
+    @objc func updateRecordIconImg() {
+        UIView.transition(with: recordingVcObj!.recordingImgView, duration: 0.2, options: .transitionCrossDissolve, animations: {
+            self.recordingVcObj?.recordingImgView.image = UIImage.init(named: "dot")
+        }, completion: nil)
+    }
     
     @objc func updateTimerLbl() {
-        
+        audioOverallTime = audioOverallTime + 0.01
+        if audioOverallTime.truncatingRemainder(dividingBy: 0.10) != 0 {
+            audioOverallTime = Double(round(100*audioOverallTime)/100)
+        }
+        recordingVcObj?.recorderTimerLbl.text = "\(audioOverallTime)"
+        recordingVcObj?.recorderTimerLbl.text = recordingVcObj?.recorderTimerLbl.text?.replacingOccurrences(of: ".", with: ":")
     }
     
     func getDocumentsDirectory() -> URL {
@@ -419,18 +441,28 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
     }
     
     func cancelRecording() {
+        audioOverallTime = 0.00
+        recordingVcObj?.recorderTimerLbl.text = "0:00"
         if let audio = audioRecorder {
             audio.stop()
+            if let timer = audioTimer {
+                timer.invalidate()
+            }
         }
     }
     
     func stopRecording() {
+        recordingVcObj?.recorderTimerLbl.text = "0:00"
         if let audio = audioRecorder {
             audio.stop()
             if audioStackView.isHidden {
                 audioStackView.isHidden = false
             }
+            if let timer = audioTimer {
+                timer.invalidate()
+            }
             saveAudio()
+            audioOverallTime = 0.00
         }
     }
     

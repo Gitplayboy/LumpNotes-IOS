@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 
 class RecordingVC: UIViewController, AVAudioRecorderDelegate {
+    @IBOutlet weak var recordingImgView: UIImageView!
     @IBOutlet weak var recorderTimerLbl: UILabel!
     var parentController:AddEditNoteVC?
     var audioRecorder: AVAudioRecorder!
