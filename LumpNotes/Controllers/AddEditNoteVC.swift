@@ -93,14 +93,6 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         }
         //setting session
         recordingSession = AVAudioSession.sharedInstance()
-        
-        //ask for permission
-        AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
-            if hasPermission {
-                print("Permission Accepted")
-            }
-        }
-        
         audioView.isHidden = true
     }
     
@@ -393,7 +385,7 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
     
     func startRecording() {
         audioTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerLbl), userInfo: nil, repeats: true)
-        recordingImgTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateRecordIconImg), userInfo: nil, repeats: true)
+        //recordingImgTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateRecordIconImg), userInfo: nil, repeats: true)
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MMM-yyyy"
         let date = formatter.string(from: Date())
@@ -404,10 +396,13 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
         audioName = "AUD_\(date)_\(timeString)_\(audioArr.count).m4a"
         audioName = audioName!.replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: "-", with: "_").replacingOccurrences(of: ":", with: "_")
         let audioFilename = getDocumentsDirectory().appendingPathComponent(audioName!)
+        print(audioFilename)
         let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue]
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             audioRecorder.delegate = self
+            audioRecorder.record()
+            //audioRecorder.stop()
             audioRecorder.record()
         } catch {
             audioOverallTime = 0.00
@@ -415,7 +410,9 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
                 timer.invalidate()
             }
             recordingVcObj?.recorderTimerLbl.text = "0:00"
-            audioRecorder.stop()
+            if let rec = audioRecorder {
+                rec.stop()
+            }
         }
     }
     @objc func updateRecordIconImg() {

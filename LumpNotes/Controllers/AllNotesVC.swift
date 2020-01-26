@@ -28,6 +28,7 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Utilities().deleteAllRecordings()
         notes = DataModel().fetchNotesForCategory(categoryName!)
         filteredNotes = notes
         applyPresetConstraints()

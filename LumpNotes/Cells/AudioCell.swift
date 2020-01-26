@@ -30,8 +30,11 @@ class AudioCell: UITableViewCell,AVAudioPlayerDelegate {
                 timer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(trackAudio), userInfo: nil, repeats: true)
                 do {
                     audioPlayer = try AVAudioPlayer(contentsOf: audioUrl!)
-                    audioPlayer!.play()
+                    print(audioUrl?.absoluteString)
+                    audioPlayer!.prepareToPlay()
                     audioPlayer!.delegate = self
+                    print(audioPlayer?.duration)
+                    audioPlayer!.play()
                     playBtn.setBackgroundImage(UIImage(systemName: "pause"), for: .normal)
                 } catch let err as NSError {
                     print("error while recording \(err.localizedDescription) \(err.userInfo)")
