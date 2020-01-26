@@ -27,13 +27,11 @@ class AudioCell: UITableViewCell,AVAudioPlayerDelegate {
     @IBAction func onPlayBtnClick(_ sender: UIButton) {
         if audioUrl != nil {
             if playBtn.backgroundImage(for: .normal) != UIImage(systemName: "pause") {
-                timer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(trackAudio), userInfo: nil, repeats: true)
+                timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(trackAudio), userInfo: nil, repeats: true)
                 do {
                     audioPlayer = try AVAudioPlayer(contentsOf: audioUrl!)
-                    print(audioUrl?.absoluteString)
                     audioPlayer!.prepareToPlay()
                     audioPlayer!.delegate = self
-                    print(audioPlayer?.duration)
                     audioPlayer!.play()
                     playBtn.setBackgroundImage(UIImage(systemName: "pause"), for: .normal)
                 } catch let err as NSError {
@@ -60,6 +58,18 @@ class AudioCell: UITableViewCell,AVAudioPlayerDelegate {
         audioProgress.setProgress(0,animated: true)
         timer?.invalidate()
     }
+    
+    func findAudioDuration() {
+        if let url = audioUrl {
+            do {
+                let audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioTimeLbl.text = "\(Double(round(100 * audioPlayer.duration / 100)/100))"
+                audioTimeLbl.text = audioTimeLbl.text?.replacingOccurrences(of: ".", with: ":")
+            } catch {
+                
+            }
+        }
+    }
 
     @objc func trackAudio() {
         if let audio = audioPlayer {
@@ -67,7 +77,7 @@ class AudioCell: UITableViewCell,AVAudioPlayerDelegate {
             if normalizedTime > 100 {
                 audioTimeLbl.text = "1:\(String(Int(audio.currentTime)))"
             } else {
-                audioTimeLbl.text = "0:\(String(Int(audio.currentTime)))"
+                audioTimeLbl.text = "0:0\(String(Int(audio.currentTime)))"
             }
             audioProgress.setProgress(normalizedTime, animated: true)
         } else {

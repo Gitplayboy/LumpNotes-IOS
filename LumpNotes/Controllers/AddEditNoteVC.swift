@@ -359,6 +359,7 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
         cell.delegate = self
         cell.audioTimeLbl.text = "\(audioOverallTime)"
         cell.audioTimeLbl.text = cell.audioTimeLbl.text?.replacingOccurrences(of: ".", with: ":")
+        cell.findAudioDuration()
         
         if audioArr.isEmpty && !audioStackView.isHidden {
             audioStackView.isHidden = true
@@ -368,11 +369,7 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(audioArr.count)
         return audioArr.count
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("am selected at \(indexPath.row)")
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "recordingSB" {
@@ -385,7 +382,7 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
     
     func startRecording() {
         audioTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerLbl), userInfo: nil, repeats: true)
-        //recordingImgTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateRecordIconImg), userInfo: nil, repeats: true)
+        recordingImgTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateRecordIconImg), userInfo: nil, repeats: true)
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MMM-yyyy"
         let date = formatter.string(from: Date())
@@ -402,7 +399,6 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
             audioRecorder.delegate = self
             audioRecorder.record()
-            //audioRecorder.stop()
             audioRecorder.record()
         } catch {
             audioOverallTime = 0.00

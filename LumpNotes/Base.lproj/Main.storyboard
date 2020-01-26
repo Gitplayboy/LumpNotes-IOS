@@ -163,7 +163,7 @@
                                             <constraint firstAttribute="height" constant="48" id="kHl-ZX-tdU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <connections>
                                             <action selector="onSearchCategory" destination="BYZ-38-t0r" eventType="touchUpInside" id="2xC-cb-1A0"/>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="Mu5-mF-RLm"/>
@@ -274,9 +274,9 @@
                                             <constraint firstAttribute="width" constant="270" id="noE-cr-uW2"/>
                                             <constraint firstAttribute="height" constant="45" id="tAj-xY-qad"/>
                                         </constraints>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <connections>
                                             <outlet property="delegate" destination="iot-ft-61R" id="IaD-S1-Jqd"/>
                                         </connections>
@@ -443,13 +443,13 @@
                                             <constraint firstAttribute="height" constant="48" id="0xp-wa-i4r"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                         <connections>
                                             <outlet property="delegate" destination="CZs-SL-wKK" id="7LX-Zc-pay"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PcS-Ms-fW6">
-                                        <rect key="frame" x="289.66666666666669" y="106" width="50" height="50"/>
+                                        <rect key="frame" x="314.66666666666669" y="106" width="25" height="25"/>
                                         <state key="normal" image="search"/>
                                     </button>
                                 </subviews>
@@ -809,7 +809,7 @@
                                                 </constraints>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
                                                         <real key="value" value="0.29999999999999999"/>
@@ -825,7 +825,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="NOTE TITLE" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h1I-e5-9sh">
                                                 <rect key="frame" x="20" y="26" width="335" height="57"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="41"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="7fq-IJ-lTn">
                                                 <rect key="frame" x="20" y="429" width="335" height="600"/>
@@ -1010,7 +1010,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="NNM-1c-et8">
+                                                            <mapView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="NNM-1c-et8">
                                                                 <rect key="frame" x="0.0" y="52.666666666666629" width="335" height="547.33333333333337"/>
                                                             </mapView>
                                                         </subviews>
@@ -1215,7 +1215,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeT-DS-iit">
-                                <rect key="frame" x="16" y="12.666666666666742" width="30" height="30"/>
+                                <rect key="frame" x="16" y="12.666666666666664" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="jj1-AY-KRE"/>
                                     <constraint firstAttribute="width" constant="30" id="ryH-el-vgI"/>
@@ -1227,7 +1227,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1f8-1d-yhA">
-                                <rect key="frame" x="133" y="12.666666666666742" width="30" height="30"/>
+                                <rect key="frame" x="133" y="12.666666666666664" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Sxe-lD-aQ4"/>
                                     <constraint firstAttribute="width" constant="30" id="izt-kS-B5n"/>
@@ -1292,7 +1292,7 @@
         <image name="xmark.circle" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0VN-Ej-2mc"/>
+        <segue reference="6Gd-Nm-AdY"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

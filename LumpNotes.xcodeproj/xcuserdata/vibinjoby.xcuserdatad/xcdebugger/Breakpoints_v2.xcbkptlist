@@ -1383,22 +1383,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "734753C8-E25E-47FB-A63E-920A84717435"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LumpNotes/Cells/AudioCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "trackAudio()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "54C88E0C-A8B4-4426-9944-9D4474150153"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1470,8 +1454,8 @@
             filePath = "LumpNotes/Controllers/AddEditNoteVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "397"
-            endingLineNumber = "397"
+            startingLineNumber = "398"
+            endingLineNumber = "398"
             landmarkName = "startRecording()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1518,8 +1502,8 @@
             filePath = "LumpNotes/Controllers/AddEditNoteVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "startRecording()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1600,7 +1584,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "66"
             endingLineNumber = "66"
-            landmarkName = "trackAudio()"
+            landmarkName = "findAudioDuration()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1646,8 +1630,8 @@
             filePath = "LumpNotes/Controllers/AddEditNoteVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1760,22 +1744,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "120"
             endingLineNumber = "120"
-            landmarkName = "deleteAllRecordings()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DCBE8DA8-30D5-41F3-9152-7F0EEA9AD038"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LumpNotes/Utils/Utilities.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
             landmarkName = "deleteAllRecordings()"
             landmarkType = "7">
          </BreakpointContent>
