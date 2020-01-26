@@ -168,7 +168,7 @@ class DataModel {
         }
     }
     
-    func untitledCategoryWithNote(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,_ note_created_timestamp:String,_ images:[Data]?) {
+    func untitledCategoryWithNote(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,_ note_created_timestamp:String,_ images:[Data]?, _ audios:Data?) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
@@ -185,6 +185,7 @@ class DataModel {
         notes_entity.setValue(longitude, forKey: "note_longitude_loc")
         notes_entity.setValue(categoryName, forKey: "category_name")
         notes_entity.setValue(note_created_timestamp, forKey: "note_created_timestamp")
+        notes_entity.setValue(audios, forKey: "note_audios")
         do {
             if let img = images {
                 let imgData = try NSKeyedArchiver.archivedData(withRootObject: img, requiringSecureCoding: false)
@@ -203,7 +204,7 @@ class DataModel {
         }
     }
     
-    func addNotesForCategory(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,_ note_created_timestamp:String,_ images:[Data]?) {
+    func addNotesForCategory(_ categoryName:String,_ title:String,_ description:String,_ latitude:String,_ longitude:String,_ note_created_timestamp:String,_ images:[Data]?,_ audios:Data?) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
           return
         }
@@ -220,6 +221,7 @@ class DataModel {
                 notes_entity.setValue(longitude, forKey: "note_longitude_loc")
                 notes_entity.setValue(categoryName, forKey: "category_name")
                 notes_entity.setValue(note_created_timestamp, forKey: "note_created_timestamp")
+                notes_entity.setValue(audios, forKey: "note_audios")
                 do {
                     if let img = images {
                         let imgData = try NSKeyedArchiver.archivedData(withRootObject: img, requiringSecureCoding: false)
@@ -230,7 +232,7 @@ class DataModel {
                 }
                 category.addToNotes(notes_entity)
             } else {
-                untitledCategoryWithNote(categoryName, title, description, latitude, longitude,  note_created_timestamp, images)
+                untitledCategoryWithNote(categoryName, title, description, latitude, longitude,  note_created_timestamp, images,audios)
             }
           try managedContext.save()
         } catch let error as NSError {
@@ -241,9 +243,11 @@ class DataModel {
     func moveNoteToCategory(_ oldCategoryName:String,_ noteObj:Notes,_ newCategoryName:String) {
         deleteNote(oldCategoryName, noteObj)
         var imgData:[Data]?
+        var audData:Data?
         if let noteImages = noteObj.note_images {
             imgData = NSKeyedUnarchiver.unarchiveObject(with: noteImages) as? [Data]
         }
-        addNotesForCategory(newCategoryName, noteObj.note_title!, noteObj.note_description!, noteObj.note_latitude_loc!, noteObj.note_longitude_loc!,  noteObj.note_created_timestamp!, imgData != nil ? imgData : nil)
+        audData = noteObj.note_audios
+        addNotesForCategory(newCategoryName, noteObj.note_title!, noteObj.note_description!, noteObj.note_latitude_loc!, noteObj.note_longitude_loc!,  noteObj.note_created_timestamp!, imgData != nil ? imgData : nil, audData != nil ? audData : nil)
     }
 }

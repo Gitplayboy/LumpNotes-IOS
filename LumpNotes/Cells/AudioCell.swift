@@ -9,42 +9,50 @@
 import UIKit
 import AVFoundation
 
-class AudioCell: UITableViewCell,AVAudioPlayerDelegate {
+protocol AudioCellDelegate:class {
+    func deleteAudio(cell: AudioCell)
+}
 
+class AudioCell: UITableViewCell,AVAudioPlayerDelegate {
+    
+    var delegate:AudioCellDelegate?
     //Audio
-    var audioPlayer: AVAudioPlayer!
+    var audioPlayer: AVAudioPlayer?
     var audioUrl:URL?
     var timer:Timer?
     @IBOutlet weak var audioProgress: UIProgressView!
     @IBOutlet weak var audioTime: UILabel!
     @IBOutlet weak var audioTimeLbl: UILabel!
-    @IBOutlet weak var stopBtn: UIButton!
     @IBOutlet weak var playBtn: UIButton!
+    
     @IBAction func onPlayBtnClick(_ sender: UIButton) {
-        guard let url = audioUrl else { return }
-        if playBtn.backgroundImage(for: .normal) != UIImage(systemName: "pause") {
-            timer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(trackAudio), userInfo: nil, repeats: true)
-            //start Audio Playing
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: url)
-                audioPlayer.play()
-                audioPlayer.delegate = self
-                playBtn.setBackgroundImage(UIImage(systemName: "pause"), for: .normal)
-            } catch {
-                print("error while recording")
+        if audioUrl != nil {
+            if playBtn.backgroundImage(for: .normal) != UIImage(systemName: "pause") {
+                timer = Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(trackAudio), userInfo: nil, repeats: true)
+                do {
+                    audioPlayer = try AVAudioPlayer(contentsOf: audioUrl!)
+                    audioPlayer!.play()
+                    audioPlayer!.delegate = self
+                    playBtn.setBackgroundImage(UIImage(systemName: "pause"), for: .normal)
+                } catch let err as NSError {
+                    print("error while recording \(err.localizedDescription) \(err.userInfo)")
+                }
+            } else {
+                timer?.invalidate()
+                audioPlayer!.pause()
+                playBtn.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
             }
-        } else {
-            timer?.invalidate()
-            audioPlayer.pause()
-            playBtn.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
         }
     }
     @IBAction func onStopBtnClick(_ sender: Any) {
-        audioPlayer.stop()
-        playBtn.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
-        audioProgress.setProgress(0,animated: true)
-        timer?.invalidate()
+        if let player = audioPlayer {
+            player.stop()
+            playBtn.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+            audioProgress.setProgress(0,animated: true)
+            timer?.invalidate()
+        }
     }
+    
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         playBtn.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
         audioProgress.setProgress(0,animated: true)
@@ -52,14 +60,20 @@ class AudioCell: UITableViewCell,AVAudioPlayerDelegate {
     }
 
     @objc func trackAudio() {
-        let normalizedTime = Float(audioPlayer.currentTime * 100.0 / audioPlayer.duration)
-        if normalizedTime > 100 {
-            audioTimeLbl.text = "1:\(String(Int(audioPlayer.currentTime)))"
+        if let audio = audioPlayer {
+            let normalizedTime = Float(audio.currentTime * 100.0 / audio.duration)
+            if normalizedTime > 100 {
+                audioTimeLbl.text = "1:\(String(Int(audio.currentTime)))"
+            } else {
+                audioTimeLbl.text = "0:\(String(Int(audio.currentTime)))"
+            }
+            audioProgress.setProgress(normalizedTime, animated: true)
         } else {
-            audioTimeLbl.text = "0:\(String(Int(audioPlayer.currentTime)))"
+            timer?.invalidate()
         }
-        print(normalizedTime)
-        audioProgress.setProgress(normalizedTime, animated: true)
+    }
+    @IBAction func onDelete(_ sender: UIButton) {
+        delegate?.deleteAudio(cell: self)
     }
     
 }

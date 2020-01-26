@@ -63,8 +63,11 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var audioStackView: UIStackView!
     //Audio
     var recordingSession: AVAudioSession!
+    @IBOutlet weak var audioView: UIView!
     var audioRecorder: AVAudioRecorder!
-    var audioPlayer: AVAudioPlayer!
+    var audioArr = [String]()
+    var audioName:String?
+    var audioTimer:Timer?
     
     override func viewDidLoad() {
         topView.layer.cornerRadius = 20
@@ -94,6 +97,8 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
                 print("Permission Accepted")
             }
         }
+        
+        audioView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -219,7 +224,7 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         let imgView = UIImageView()
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imgView.image = selectedImage
-            imgView.contentMode = .scaleAspectFill
+            imgView.contentMode = .scaleAspectFit
             imgView.clipsToBounds = true
                 self.imgViewArr.append(imgView)
                 self.imgCollecView.insertItems(at: [IndexPath(row: self.imgViewArr.count - 1, section: 0)])
@@ -241,24 +246,43 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         
         if !notesTitle.text!.isEmpty {
             var imgData : [Data]?
+            var audData : Data?
             if imgViewArr.count > 0 {
                 imgData = [Data]()
+            }
+            if audioArr.count > 0 {
+                audData = Data()
             }
             for imgView in imgViewArr {
                 imgData!.append((imgView.image?.pngData())!)
             }
+            // Encoding audio path of array  to data
+            do {
+                if !audioArr.isEmpty {
+                    let audioData = try NSKeyedArchiver.archivedData(withRootObject: audioArr, requiringSecureCoding: false)
+                    audData!.append(audioData)
+                }
+            } catch {
+                print("Error in audio encoding")
+            }
+            
             if !isEditNote {
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 let currDate = formatter.string(from: Date())
-            DataModel().addNotesForCategory(self.categoryName!, self.notesTitle.text!, self.notesTxt.text!, String(self.locManager.location!.coordinate.latitude), String(self.locManager.location!.coordinate.longitude), currDate, imgData)
+                DataModel().addNotesForCategory(self.categoryName!, self.notesTitle.text!, self.notesTxt.text!, String(self.locManager.location!.coordinate.latitude), String(self.locManager.location!.coordinate.longitude), currDate, imgData != nil ? imgData!:nil,audData != nil ? audData!:nil)
             } else {
                 notesObj?.note_title = notesTitle.text!
                 notesObj?.note_description = notesTxt.text!
+                notesObj?.note_audios = audData
                 do {
                     if let imgs = imgData {
                         let imgData = try NSKeyedArchiver.archivedData(withRootObject: imgs, requiringSecureCoding: false)
                         notesObj?.note_images = imgData
+                    } else {
+                        imgData = [Data]()
+                        let imgs = try NSKeyedArchiver.archivedData(withRootObject:  imgData!, requiringSecureCoding: false)
+                        notesObj?.note_images = imgs
                     }
                     DataModel().updateNote(self.categoryName!, notesObj!)
                 } catch let error as NSError {
@@ -280,6 +304,8 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         cell.delegate = self
         cell.imgView.image = imgViewArr[indexPath.row].image
+        //cell.imgView.contentMode = .scaleAspectFit
+        cell.imgView.clipsToBounds = true
         if imgViewArr.isEmpty && !imgStackView.isHidden {
             imgStackView.isHidden = true
         } else if !imgViewArr.isEmpty && imgStackView.isHidden {
@@ -287,12 +313,15 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         }
         return cell
     }
+    
     @IBAction func onAudioRecordClick(_ sender: Any) {
-        
+        audioView.isHidden = false
+        startRecording()
     }
 }
 
-extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewDataSource ,AVAudioRecorderDelegate{
+extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewDataSource ,AVAudioRecorderDelegate ,AudioCellDelegate{
+    
     func deleteImage(cell: ImageCell) {
         let index = self.imgCollecView.indexPath(for: cell)
         self.imgCollecView.deleteItems(at: [index!])
@@ -315,19 +344,115 @@ extension AddEditNoteVC: ImageCellDelegate, UITableViewDelegate, UITableViewData
                     imgViewArr.append(UIImageView(image: UIImage(data: images)))
                 }
             }
+            if let noteAudios = notes.note_audios {
+                let audData = NSKeyedUnarchiver.unarchiveObject(with: noteAudios)
+                for audios in audData as! [String]{
+                    audioArr.append(audios)
+                }
+            }
             if !imgViewArr.isEmpty {
                 imgStackView.isHidden = false
+            }
+            if !audioArr.isEmpty {
+                audioStackView.isHidden = false
             }
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "audioCell") as! AudioCell
-        cell.audioUrl = Bundle.main.url(forResource: "audio", withExtension: "mp3")
+        cell.audioUrl = getDocumentsDirectory().appendingPathComponent("\(audioArr[indexPath.row])")
+        cell.delegate = self
+        if audioArr.isEmpty && !audioStackView.isHidden {
+            audioStackView.isHidden = true
+        } else if !audioArr.isEmpty && audioStackView.isHidden {
+            audioStackView.isHidden = false
+        }
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        print(audioArr.count)
+        return audioArr.count
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("am selected at \(indexPath.row)")
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "recordingSB" {
+            let dest = segue.destination as! RecordingVC
+            dest.parentController = self
+            dest.audioRecorder = self.audioRecorder
+        }
+    }
+    
+    func startRecording() {
+        audioTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerLbl), userInfo: nil, repeats: true)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MMM-yyyy"
+        let date = formatter.string(from: Date())
+        //For time
+        formatter.timeStyle = .short
+        let timeString = formatter.string(from: Date())
         
+        audioName = "AUD_\(date)_\(timeString)_\(audioArr.count).m4a"
+        audioName = audioName!.replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: "-", with: "_").replacingOccurrences(of: ":", with: "_")
+        let audioFilename = getDocumentsDirectory().appendingPathComponent(audioName!)
+        let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC), AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1, AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue]
+        do {
+            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder.delegate = self
+            audioRecorder.record()
+        } catch {
+            audioRecorder.stop()
+        }
+    }
+    
+    @objc func updateTimerLbl() {
+        
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = paths[0]
+        print(documentDirectory)
+        return documentDirectory
+    }
+    
+    func cancelRecording() {
+        if let audio = audioRecorder {
+            audio.stop()
+        }
+    }
+    
+    func stopRecording() {
+        if let audio = audioRecorder {
+            audio.stop()
+            if audioStackView.isHidden {
+                audioStackView.isHidden = false
+            }
+            saveAudio()
+        }
+    }
+    
+    func saveAudio() {
+        if let audioNm = audioName {
+            audioArr.append(audioNm)
+            audioTableView.insertRows(at: [IndexPath(row: self.audioArr.count - 1, section: 0)], with: .fade)
+            audioTableView.scrollToRow(at: IndexPath(row: self.audioArr.count - 1, section: 0), at: .bottom, animated: true)
+        }
+    }
+    
+    func deleteAudio(cell: AudioCell) {
+        let index = self.audioTableView.indexPath(for: cell)
+        if let idx = index {
+            audioArr.remove(at: index!.row)
+            self.audioTableView.deleteRows(at: [idx], with: .fade)
+            
+            if audioArr.isEmpty && !audioStackView.isHidden{
+                audioStackView.isHidden = true
+            } else if !audioArr.isEmpty && audioStackView.isHidden {
+                audioStackView.isHidden = false
+            }
+        }
+    }
 }

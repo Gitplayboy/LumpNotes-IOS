@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4548485323DCC45A00ED3758 /* RecordingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4548485223DCC45A00ED3758 /* RecordingVC.swift */; };
 		45485D4C23CEE91D00DF9BE9 /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45485D4B23CEE91C00DF9BE9 /* SFProDisplay-Bold.ttf */; };
 		45485D5323CEF5EE00DF9BE9 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454F72CA23CC003E00A2001E /* MainVC.swift */; };
 		4548858623CCD11E0072BB82 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4548858523CCD11E0072BB82 /* DataModel.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4548485223DCC45A00ED3758 /* RecordingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingVC.swift; sourceTree = "<group>"; };
 		45485D4B23CEE91C00DF9BE9 /* SFProDisplay-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Bold.ttf"; sourceTree = "<group>"; };
 		4548858523CCD11E0072BB82 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		454A803B23DB3C9400A7FD18 /* audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio.mp3; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				4571016323D436B300A45AB2 /* AllNotesVC.swift */,
 				4571017A23D4CD9500A45AB2 /* AddEditNoteVC.swift */,
 				459659BD23D37BFC007B5B69 /* AddEditCategoryVC.swift */,
+				4548485223DCC45A00ED3758 /* RecordingVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				4548858623CCD11E0072BB82 /* DataModel.swift in Sources */,
 				45F01E0123CC4A320076D02F /* Utilities.swift in Sources */,
 				4571017623D43D9A00A45AB2 /* NotesCell.swift in Sources */,
+				4548485323DCC45A00ED3758 /* RecordingVC.swift in Sources */,
 				454F72D123CC003E00A2001E /* LumpNotes.xcdatamodeld in Sources */,
 				4571017723D43D9A00A45AB2 /* AddEditCategoryCell.swift in Sources */,
 				454F72C723CC003E00A2001E /* AppDelegate.swift in Sources */,
