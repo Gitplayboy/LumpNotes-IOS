@@ -17,7 +17,7 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
     @IBOutlet weak var notesTableView: UITableView!
     @IBOutlet weak var NotesNotFoundVC: UIView!
     @IBOutlet weak var sortBtn: UIButton!
-    
+    @IBOutlet weak var categoryNameLbl: UILabel!
     var categories:[String]?
     var isAscendingSort = false
     var categoryName:String?
@@ -32,6 +32,9 @@ class AllNotesVC: UIViewController, UITableViewDelegate, UITableViewDataSource,A
         notes = DataModel().fetchNotesForCategory(categoryName!)
         filteredNotes = notes
         applyPresetConstraints()
+        if let category = categoryName {
+            categoryNameLbl.text = "\(category) Notes"
+        }
     }
     
     func applyPresetConstraints() {

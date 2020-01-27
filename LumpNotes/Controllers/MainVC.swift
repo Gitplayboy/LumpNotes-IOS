@@ -111,7 +111,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         if searchBar.text != nil && !searchBar.text!.isEmpty {
             filteredCategories = []
             for item in items.keys {
-                if item.lowercased().hasPrefix(searchBar!.text!.lowercased()) {
+                if item.lowercased().contains(searchBar!.text!.lowercased()) {
                     filteredCategories.append(item)
                     isFound = true
                 }

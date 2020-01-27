@@ -619,6 +619,7 @@
                     <connections>
                         <outlet property="NotesNotFoundVC" destination="CPc-lq-UQ6" id="Khf-yg-pPu"/>
                         <outlet property="addNotesBtn" destination="Wzs-Dq-483" id="5rH-Sh-m3L"/>
+                        <outlet property="categoryNameLbl" destination="5fV-fi-EhB" id="JTP-Cx-yFv"/>
                         <outlet property="emptyContainerView" destination="3lD-qP-kBH" id="A0C-Ma-tvx"/>
                         <outlet property="notesTableView" destination="RWk-IR-gsT" id="Ctx-Qv-r63"/>
                         <outlet property="searchBar" destination="dFG-pg-9F2" id="RcW-D1-t4t"/>
@@ -1292,7 +1293,7 @@
         <image name="xmark.circle" catalog="system" width="64" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0VN-Ej-2mc"/>
+        <segue reference="bRh-KF-NeJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

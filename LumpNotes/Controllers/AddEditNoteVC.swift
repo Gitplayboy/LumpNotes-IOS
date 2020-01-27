@@ -100,8 +100,10 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         audioView.isHidden = true
         
         //Scroll to bottom for textview
-        let bottom = NSMakeRange(notesTxt.text.count - 1, 1)
-        notesTxt.scrollRangeToVisible(bottom)
+        
+        let bottom = self.notesTxt.contentSize.height - self.notesTxt.bounds.size.height
+        self.notesTxt.setContentOffset(CGPoint(x: 0, y: bottom), animated: true)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
