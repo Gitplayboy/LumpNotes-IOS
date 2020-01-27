@@ -41,7 +41,7 @@ class AddEditCategoryVC: UIViewController,UICollectionViewDelegate, UICollection
         let mainVc = self.parent as! MainVC
         if let category = categoryTxt {
             mainVc.editCategory(category,addCatgryTxt.text!,selectedIconIdx)
-        } else  if addCatgryTxt != nil && !addCatgryTxt.text!.isEmpty {
+        } else  if addCatgryTxt != nil && !addCatgryTxt.text!.trimmingCharacters(in: NSCharacterSet.whitespaces).isEmpty {
             let mainVc = self.parent as! MainVC
             mainVc.addCategory(addCatgryTxt.text!,selectedIconIdx)
         }
@@ -91,9 +91,7 @@ extension AddEditCategoryVC {
         let effect: UIBlurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialDark)
         blurEffectView = UIVisualEffectView(effect: effect)
         blurEffectView!.frame = CGRect(x:0, y:0, width:UIScreen.main.bounds.size.width,height:UIScreen.main.bounds.size.height)
-        //self.parent?.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
         self.parent?.view.addSubview(blurEffectView!)
-        //self.parent?.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
     }
     
     @objc func handleDismiss() {

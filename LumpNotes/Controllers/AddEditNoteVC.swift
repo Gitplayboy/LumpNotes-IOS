@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import AVFoundation
+import CoreLocation
 
 extension UITextView {
 
@@ -82,8 +83,11 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
             imgLocationOnMap.showsUserLocation = true
         }
         notesTitle.delegate = self
+        //location
         locManager.delegate = self
         locManager.requestWhenInUseAuthorization()
+        locManager.desiredAccuracy =  kCLLocationAccuracyNearestTenMeters
+        
         notesTitle.setBottomBorder()
         let layout = imgCollecView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.estimatedItemSize = CGSize(width: 144, height: 153)
@@ -94,6 +98,10 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
         //setting session
         recordingSession = AVAudioSession.sharedInstance()
         audioView.isHidden = true
+        
+        //Scroll to bottom for textview
+        let bottom = NSMakeRange(notesTxt.text.count - 1, 1)
+        notesTxt.scrollRangeToVisible(bottom)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -232,6 +240,10 @@ UINavigationControllerDelegate,MKMapViewDelegate, UITextFieldDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imgViewArr.count
+    }
+    
+    @objc func onBackClick() {
+        print("back button clicked")
     }
     
     @IBAction func onSaveAction(_ sender: Any) {
